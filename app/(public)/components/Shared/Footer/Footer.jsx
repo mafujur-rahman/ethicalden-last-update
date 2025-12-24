@@ -487,7 +487,7 @@ function Footer() {
             </span>
           </div>
           <p className='text-lg font-bold mt-5 lg:mt-10 font-helvetica '>
-            © Copyright {new Date().getFullYear()} - SRI L P IT AND MEDIA
+            © Copyright {new Date().getFullYear()} - Ethical Den, SRI L P IT AND MEDIA
           </p>
         </div>
       </section>

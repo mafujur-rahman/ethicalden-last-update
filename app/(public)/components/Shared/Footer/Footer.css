@@ -1,0 +1,23 @@
+@import "tailwindcss";
+
+@layer utilities {
+
+    .edn__f__container{
+        @apply mt-[20vh] pb-[10vh] lg:pb-[10vh] px-[20px] md:px-10 lg:px-[50px] xl:px-[80px] 2xl:px-[90px] 
+    }
+    .edn__f__wrapper{
+        @apply grid space-y-10 lg:space-y-0 lg:grid-cols-[20%__80%] 2xl:grid-cols-[30%_70%] 
+    }
+
+    .edn__f__menu__parent{
+        @apply grid gap-y-[5vh] lg:gap-y-0 md:grid-cols-3 lg:grid-cols-3 md:gap-14 lg:gap-14 xl:gap-26 2xl:gap-10 justify-between
+    }
+    
+    .edn__f__title{
+        @apply  text-xl md:text-2xl lg:text-2xl 2xl:text-3xl font-bold mb-4 inline-block w-fit
+    }
+    .edn__f___socail___icons {
+        @apply text-2xl md:text-2xl lg:text-3xl xl:text-3xl 2xl:text-4xl pr-3
+    }
+
+}

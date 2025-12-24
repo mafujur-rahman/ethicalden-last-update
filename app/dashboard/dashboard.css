@@ -1,0 +1,40 @@
+@import 'tailwindcss';
+
+/* section space  */
+.section_space {
+  @apply lg:px-10 2xl:px-0  py-10 px-5 ;
+}
+
+
+.d_heading{
+    @apply text-lg font-semibold 
+}
+
+.input {
+  @apply w-full px-3 py-2 border-white/10 border outline-none rounded-md text-sm ;
+}
+
+.btn {
+  @apply px-4 py-2 text-sm bg-gray-200 rounded-md;
+}
+
+.btn-primary {
+  @apply bg-red-500 text-white hover:bg-red-600 text-base font-medium;
+}
+.form-label {
+  @apply block text-sm font-medium mb-1 text-black/80 ;
+}
+.service-form-label {
+  @apply block  text-lg font-medium mb-2 text-white/80 ;
+}
+
+.inputForm {
+  @apply  border border-white/10 rounded-md p-2 mb-4 mt-2 outline-none w-full text-sm bg-white/10 text-white placeholder:text-white/40;
+}
+.textareaForm {
+  @apply w-full border border-white/10 rounded-md p-2 mb-4   outline-none text-sm bg-white/10 text-white placeholder:text-white/40;
+}
+
+.swal-confirm-btn{
+  @apply text-black 
+}

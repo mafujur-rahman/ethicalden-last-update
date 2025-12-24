@@ -1,0 +1,123 @@
+/* .font-helvetica {
+  font-family: 'Helvetica', 'Arial', sans-serif;
+} */
+
+/* Importing Urbanist font from Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Urbanist:wght@400;600;700&display=swap');
+
+@import 'tailwindcss';
+
+
+
+body {
+  font-family: 'Urbanist', sans-serif; 
+}
+
+
+.font-urbanist {
+  font-family: 'Urbanist', sans-serif;
+}
+
+@layer utilities {
+  
+  .v1__title {
+    @apply text-3xl md:text-6xl lg:text-8xl font-extrabold;
+  }
+
+  /* use for main heading title - 72px */
+  .v2__title {
+    @apply text-3xl md:text-6xl lg:text-7xl  font-bold;
+  }
+
+  /* use for suheading - 60px */
+  .v3__title {
+    @apply text-3xl md:text-4xl xl:text-5xl 2xl:text-6xl font-bold;
+  }
+  /* use for card title -36px*/
+  .v4__title {
+    @apply text-4xl font-bold;
+  }
+
+  /* common para title - 20px */
+  .base__para {
+    @apply text-2xl font-bold text-gray-600;
+  }
+
+  /* very small device breakpoint */
+  @media (max-width: 320px) {
+    .ser_bottom_list {
+      bottom: 150px;
+    }
+  }
+}
+
+/* Hide default cursor */
+body {
+  cursor: none; 
+}
+
+
+/* floating img */
+@keyframes spin-slow {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(-360deg);
+  }
+}
+
+.animate-spin-slower {
+  animation: spin-slow 10s linear infinite;
+}
+
+
+
+
+/* For the pinned section */
+.pinned-section {
+  will-change: transform; /* Hint to browser for better performance */
+  backface-visibility: hidden; /* Prevent flickering */
+}
+
+
+.text-color-change {
+  color: var(--text-color, black); /* Default to black */
+}
+
+.text-color-change:hover {
+  color: #09e5e5 !important; /* Hover overrides everything */
+}
+
+
+
+
+input:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0px 1000px #111 inset !important;
+  -webkit-text-fill-color: white !important;
+  transition: background-color 5000s ease-in-out 0s;
+}
+
+
+@media (max-width: 320px) {
+  .padding-div {
+    padding-left: 80px !important;
+    padding-right: 20px !important;
+  }
+
+}
+
+@media (max-width: 320px) {
+  .entertainment-small {
+    font-size: 0.85rem; 
+  }
+}
+
+
+/* page transition */
+.transition-overlay {
+  clip-path: polygon(0 100%, 100% 100%, 100% 100%, 0 100%);
+  transition: clip-path 0.8s ease-in-out;
+  will-change: clip-path;
+}
+

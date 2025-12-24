@@ -1,0 +1,59 @@
+@import "tailwindcss";
+
+@layer utilities {
+    .edn__p__wrapper{
+        @apply px-[5vw] md:px-[12vw] mt-[5vh] md:mt-[15vh] lg:mt-[20vh]  py-[5vh] md:py-[10vh] lg:py-[20vh] text-white
+    }
+
+    .edn__p__parent{
+        @apply grid grid-cols-2 md:gap-x-[5vw] xl:gap-x-[7vw] 
+    }
+
+    .edn__p__fr__img__parent{
+        @apply mt-[10vh] md:mt-[25vh] mb-[5vh] md:mb-0 md:w-[80%]
+    }
+    .edn__p__fr__video__parent{
+        @apply h-[60vh]
+    }
+
+    .edn__p__sr__img__parent{
+        @apply mt-[20vh] md:mt-[35vh]
+    }
+
+    .edn__p__sr__video__wrapper{
+        @apply grid lg:grid-cols-2 gap-[2vw] gap-y-[25vh] md:gap-y-0  mt-[5vh] md:mt-0
+    }
+
+    .edn__p__sr__video__height{
+        @apply  h-[30vh] 
+    }
+
+    .edn__p__tr__topSpace{
+        @apply mt-[20vh] md:mt-[50vh] 
+    }
+
+    .edn__p__tr__video__parent{
+        @apply h-[40vh] md:w-[80%]
+    }
+    .edn__fouth__row__img__topSpace{
+        @apply md:mt-[50vh] mt-[5vh]
+    }
+    .edn__fouth__row__video__topSpace{
+        @apply mt-[5vh] md:mt-[20vh]
+    }
+    .edn__fourth__row__video__parent{
+        @apply grid lg:grid-cols-2 gap-[2vw] gap-y-[20vh] md:gap-y-0
+    }
+
+    .edn__fourth__row__common__height{
+        @apply h-[35vh]
+    }
+
+    .edn__p__title {
+        @apply md:text-xl xl:text-2xl 2xl:text-3xl font-bold py-3
+    }
+
+    .edn__p__breadcumb {
+        @apply text-base font-semibold text-white/70
+    }
+}

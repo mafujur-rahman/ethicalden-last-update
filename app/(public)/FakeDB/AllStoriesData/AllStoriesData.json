@@ -1,0 +1,67 @@
+[
+    {
+      "id": 1,
+      "img": "https://mater.agency/wp-content/uploads/2024/04/Rectangle-16-38-405x405.jpg",
+      "title": "Elegant Winter Jacket for Modern Men",
+      "type": "clothing",
+      "category": "Men",
+      "subcategory": "Jackets"
+    },
+    {
+      "id": 2,
+      "img": "https://mater.agency/wp-content/uploads/2024/04/Rectangle-16-38-405x405.jpg",
+      "title": "Stylish Handbag Perfect for Daily Use",
+      "type": "accessory",
+      "category": "Women",
+      "subcategory": "Bags"
+    },
+    {
+      "id": 3,
+      "img": "https://mater.agency/wp-content/uploads/2024/04/Rectangle-16-38-405x405.jpg",
+      "title": "Comfortable Running Shoes for All Terrain",
+      "type": "footwear",
+      "category": "Unisex",
+      "subcategory": "Shoes"
+    },
+    {
+      "id": 4,
+      "img": "https://mater.agency/wp-content/uploads/2024/04/Rectangle-16-38-405x405.jpg",
+      "title": "Smartwatch With Advanced Health Features",
+      "type": "gadget",
+      "category": "Electronics",
+      "subcategory": "Wearables"
+    },
+    {
+      "id": 5,
+      "img": "https://mater.agency/wp-content/uploads/2024/04/Rectangle-16-38-405x405.jpg",
+      "title": "High-Rise Denim Jeans for Casual Wear",
+      "type": "clothing",
+      "category": "Women",
+      "subcategory": "Bottoms"
+    },
+    {
+      "id": 6,
+      "img": "https://mater.agency/wp-content/uploads/2024/04/Rectangle-16-38-405x405.jpg",
+      "title": "Luxury Leather Wallet With Card Slots",
+      "type": "accessory",
+      "category": "Men",
+      "subcategory": "Wallets"
+    },
+    {
+      "id": 7,
+      "img": "https://mater.agency/wp-content/uploads/2024/04/Rectangle-16-38-405x405.jpg",
+      "title": "Bluetooth Headphones With Noise Cancellation",
+      "type": "gadget",
+      "category": "Electronics",
+      "subcategory": "Audio"
+    },
+    {
+      "id": 8,
+      "img": "https://mater.agency/wp-content/uploads/2024/04/Rectangle-16-38-405x405.jpg",
+      "title": "Cotton T-Shirt With Urban Graphic Print",
+      "type": "clothing",
+      "category": "Men",
+      "subcategory": "Tops"
+    }
+  ]
+  

@@ -1,0 +1,7 @@
+@import "tailwindcss";
+
+@layer utilities {
+    .edn_g_container {
+        @apply min-h-screen bg-[#f1f2ee] flex justify-center items-center py-10  mb-[1000px] relative px-[5vw];
+    }
+}

@@ -1,3 +1,30 @@
+// const crewMembers = [
+//     { id: 1, name: 'Fardeen', profession: 'Founder & CEO', imageUrl: 'https://pub-d88e94f6ca8d4f2d9dcb7f5ba3ccfcf0.r2.dev/aboutPage/crew-members/Fardeen.webp' },
+//     { id: 2, name: 'Arihant', profession: 'Co-Founder & CEO', imageUrl: 'https://pub-d88e94f6ca8d4f2d9dcb7f5ba3ccfcf0.r2.dev/aboutPage/crew-members/arihant.webp' },
+//     { id: 3, name: 'Arth', profession: 'Co-Founder', imageUrl: 'https://pub-d88e94f6ca8d4f2d9dcb7f5ba3ccfcf0.r2.dev/aboutPage/crew-members/Arth.webp' },
+//     { id: 4, name: 'Nazmul', profession: 'Creative Director Country Head', imageUrl: 'https://pub-d88e94f6ca8d4f2d9dcb7f5ba3ccfcf0.r2.dev/aboutPage/crew-members/Nazmul.webp' },
+//     { id: 5, name: 'Ayushi', profession: 'Content Executive', imageUrl: 'https://pub-d88e94f6ca8d4f2d9dcb7f5ba3ccfcf0.r2.dev/aboutPage/crew-members/Ayushi.webp' },
+//     { id: 6, name: 'Samrat', profession: 'Senior Software Developer', imageUrl: 'https://pub-d88e94f6ca8d4f2d9dcb7f5ba3ccfcf0.r2.dev/aboutPage/crew-members/Samrat.webp' },
+//     { id: 7, name: 'Khokon', profession: 'Cyber Security Expert', imageUrl: 'https://pub-d88e94f6ca8d4f2d9dcb7f5ba3ccfcf0.r2.dev/aboutPage/crew-members/khokon.webp' },
+//     { id: 8, name: 'Yathish', profession: 'Chief Data Scientist', imageUrl: 'https://pub-d88e94f6ca8d4f2d9dcb7f5ba3ccfcf0.r2.dev/aboutPage/crew-members/Yathish.webp' },
+//     { id: 9, name: 'Shamim', profession: 'AI Developer', imageUrl: 'https://pub-d88e94f6ca8d4f2d9dcb7f5ba3ccfcf0.r2.dev/aboutPage/crew-members/shamim.png' },
+//     { id: 10, name: 'Noor', profession: 'AI Developer', imageUrl: 'https://pub-d88e94f6ca8d4f2d9dcb7f5ba3ccfcf0.r2.dev/aboutPage/crew-members/noor.png' },
+//     { id: 11, name: 'Alvira', profession: 'HR officer India', imageUrl: 'https://pub-d88e94f6ca8d4f2d9dcb7f5ba3ccfcf0.r2.dev/aboutPage/crew-members/Alvira.webp' },
+//     { id: 12, name: 'Sagnik', profession: 'Business Development Expert', imageUrl: 'https://pub-d88e94f6ca8d4f2d9dcb7f5ba3ccfcf0.r2.dev/aboutPage/crew-members/Shagnik.webp' },
+//     { id: 13, name: 'Sumaiya', profession: 'App Developer', imageUrl: 'https://pub-d88e94f6ca8d4f2d9dcb7f5ba3ccfcf0.r2.dev/aboutPage/crew-members/sumaiya.png' },
+//     { id: 14, name: 'Fatema', profession: 'Mobile App Developer', imageUrl: 'https://pub-d88e94f6ca8d4f2d9dcb7f5ba3ccfcf0.r2.dev/aboutPage/crew-members/Fatema.webp' },
+//     { id: 15, name: 'MD. Shakil', profession: 'Senior Backend Developer', imageUrl: 'https://pub-d88e94f6ca8d4f2d9dcb7f5ba3ccfcf0.r2.dev/aboutPage/crew-members/MD.%20Shakil.webp' },
+//      { id: 16, name: 'Joy', profession: 'Frontend Developer', imageUrl: 'https://pub-d88e94f6ca8d4f2d9dcb7f5ba3ccfcf0.r2.dev/aboutPage/crew-members/Joy.webp' },
+//     { id: 17, name: 'Tahamid', profession: 'Wordpress Developer', imageUrl: 'https://pub-d88e94f6ca8d4f2d9dcb7f5ba3ccfcf0.r2.dev/aboutPage/crew-members/tahamid.webp' },
+//     { id: 18, name: 'Mafujur', profession: 'Frontend Developer', imageUrl: 'https://pub-d88e94f6ca8d4f2d9dcb7f5ba3ccfcf0.r2.dev/aboutPage/crew-members/Mafuzur.webp' },
+//     { id: 19, name: 'Nafijur', profession: 'junior Backend Developer', imageUrl: 'https://pub-d88e94f6ca8d4f2d9dcb7f5ba3ccfcf0.r2.dev/aboutPage/crew-members/Nafijur.webp' },
+//     { id: 20, name: 'Partho', profession: 'SEO Expert', imageUrl: 'https://pub-d88e94f6ca8d4f2d9dcb7f5ba3ccfcf0.r2.dev/aboutPage/crew-members/Partho.webp' },
+//     { id: 21, name: 'Tanisha', profession: 'Student Counsellor Placement Executive', imageUrl: 'https://pub-d88e94f6ca8d4f2d9dcb7f5ba3ccfcf0.r2.dev/aboutPage/crew-members/Tanisha.webp' },
+//     { id: 22, name: 'Sharmistha', profession: 'Student Counsellor Placement Executive', imageUrl: 'https://pub-d88e94f6ca8d4f2d9dcb7f5ba3ccfcf0.r2.dev/aboutPage/crew-members/Sharmistha.webp' },
+//     { id: 23, name: 'Tahsin', profession: 'Student Counsellor Placement Executive', imageUrl: 'https://pub-d88e94f6ca8d4f2d9dcb7f5ba3ccfcf0.r2.dev/aboutPage/crew-members/Tahsin.webp' },
+//     { id: 24, name: 'Mouradul', profession: 'Graphics Designer', imageUrl: 'https://pub-d88e94f6ca8d4f2d9dcb7f5ba3ccfcf0.r2.dev/aboutPage/crew-members/mouradul.webp' },
+//     { id: 25, name: 'Shad', profession: 'Graphics Designer', imageUrl: 'https://pub-d88e94f6ca8d4f2d9dcb7f5ba3ccfcf0.r2.dev/aboutPage/crew-members/shad.webp' },
+// ];
 
 'use client'
 import { useEffect, useRef, useState } from 'react';
@@ -11,7 +38,7 @@ const useIsMobile = () => {
 
     useEffect(() => {
         const handleResize = () => {
-            setIsMobile(window.innerWidth < 768); 
+            setIsMobile(window.innerWidth < 768);
         };
 
         handleResize();
@@ -31,23 +58,24 @@ const MeetTheCrew = () => {
         { id: 1, name: 'Fardeen', profession: 'Founder & CEO', imageUrl: 'https://pub-d88e94f6ca8d4f2d9dcb7f5ba3ccfcf0.r2.dev/aboutPage/crew-members/Fardeen.webp' },
         { id: 2, name: 'Arihant', profession: 'Co-Founder & CEO', imageUrl: 'https://pub-d88e94f6ca8d4f2d9dcb7f5ba3ccfcf0.r2.dev/aboutPage/crew-members/arihant.webp' },
         { id: 3, name: 'Arth', profession: 'Co-Founder', imageUrl: 'https://pub-d88e94f6ca8d4f2d9dcb7f5ba3ccfcf0.r2.dev/aboutPage/crew-members/Arth.webp' },
-        { id: 4, name: 'Nazmul', profession: 'Creative Director Country Head', imageUrl: '/images/team/nazmul.jpeg' },
         { id: 4, name: 'Praveen Rathan N', profession: 'Chief operating officer', imageUrl: '/images/team/praveen.jpeg' },
-        { id: 4, name: 'Nawaz Aqiv Ahmed', profession: 'Senior Business Developer', imageUrl: '/images/team/nawaz.jpeg' },
-        { id: 5, name: 'Ayushi', profession: 'Content Executive', imageUrl: 'https://pub-d88e94f6ca8d4f2d9dcb7f5ba3ccfcf0.r2.dev/aboutPage/crew-members/Ayushi.webp' },
-        { id: 6, name: 'Samrat', profession: 'Senior Software Developer', imageUrl: 'https://pub-d88e94f6ca8d4f2d9dcb7f5ba3ccfcf0.r2.dev/aboutPage/crew-members/Samrat.webp' },
-        { id: 7, name: 'Khokon', profession: 'Cyber Security Expert', imageUrl: 'https://pub-d88e94f6ca8d4f2d9dcb7f5ba3ccfcf0.r2.dev/aboutPage/crew-members/khokon.webp' },
-        { id: 8, name: 'Yathish', profession: 'Chief Data Scientist', imageUrl: 'https://pub-d88e94f6ca8d4f2d9dcb7f5ba3ccfcf0.r2.dev/aboutPage/crew-members/Yathish.webp' },
-        { id: 9, name: 'Shamim', profession: 'AI Developer', imageUrl: 'https://pub-d88e94f6ca8d4f2d9dcb7f5ba3ccfcf0.r2.dev/aboutPage/crew-members/shamim.png' },
-        { id: 10, name: 'Noor', profession: 'AI Developer', imageUrl: 'https://pub-d88e94f6ca8d4f2d9dcb7f5ba3ccfcf0.r2.dev/aboutPage/crew-members/noor.png' },
-        { id: 11, name: 'Alvira', profession: 'HR officer India', imageUrl: 'https://pub-d88e94f6ca8d4f2d9dcb7f5ba3ccfcf0.r2.dev/aboutPage/crew-members/Alvira.webp' },
-        { id: 12, name: 'Sagnik', profession: 'Business Development Expert', imageUrl: 'https://pub-d88e94f6ca8d4f2d9dcb7f5ba3ccfcf0.r2.dev/aboutPage/crew-members/Shagnik.webp' },
-        { id: 13, name: 'Sumaiya', profession: 'App Developer', imageUrl: 'https://pub-d88e94f6ca8d4f2d9dcb7f5ba3ccfcf0.r2.dev/aboutPage/crew-members/sumaiya.png' },
-        { id: 14, name: 'Fatema', profession: 'Mobile App Developer', imageUrl: 'https://pub-d88e94f6ca8d4f2d9dcb7f5ba3ccfcf0.r2.dev/aboutPage/crew-members/Fatema.webp' },
-        { id: 15, name: 'MD. Shakil', profession: 'Senior Backend Developer', imageUrl: 'https://pub-d88e94f6ca8d4f2d9dcb7f5ba3ccfcf0.r2.dev/aboutPage/crew-members/MD.%20Shakil.webp' },
-        { id: 17, name: 'Tahamid', profession: 'Wordpress Developer', imageUrl: 'https://pub-d88e94f6ca8d4f2d9dcb7f5ba3ccfcf0.r2.dev/aboutPage/crew-members/tahamid.webp' },
-        { id: 18, name: 'Mafujur', profession: 'Frontend Developer', imageUrl: 'https://pub-d88e94f6ca8d4f2d9dcb7f5ba3ccfcf0.r2.dev/aboutPage/crew-members/Mafuzur.webp' },
-        { id: 19, name: 'Nafijur', profession: 'junior Backend Developer', imageUrl: 'https://pub-d88e94f6ca8d4f2d9dcb7f5ba3ccfcf0.r2.dev/aboutPage/crew-members/Nafijur.webp' },
+        { id: 5, name: 'Nazmul', profession: 'Creative Director Country Head', imageUrl: '/images/team/nazmul.jpeg' },  
+        { id: 6, name: 'Ayushi', profession: 'Content Executive', imageUrl: 'https://pub-d88e94f6ca8d4f2d9dcb7f5ba3ccfcf0.r2.dev/aboutPage/crew-members/Ayushi.webp' },
+        { id: 7, name: 'Samrat', profession: 'Senior Software Developer', imageUrl: 'https://pub-d88e94f6ca8d4f2d9dcb7f5ba3ccfcf0.r2.dev/aboutPage/crew-members/Samrat.webp' },
+        { id: 8, name: 'Khokon', profession: 'Cyber Security Expert', imageUrl: 'https://pub-d88e94f6ca8d4f2d9dcb7f5ba3ccfcf0.r2.dev/aboutPage/crew-members/khokon.webp' },
+        { id: 9, name: 'Yathish', profession: 'Chief Data Scientist', imageUrl: 'https://pub-d88e94f6ca8d4f2d9dcb7f5ba3ccfcf0.r2.dev/aboutPage/crew-members/Yathish.webp' },
+        { id: 10, name: 'Shamim', profession: 'AI Developer', imageUrl: 'https://pub-d88e94f6ca8d4f2d9dcb7f5ba3ccfcf0.r2.dev/aboutPage/crew-members/shamim.png' },
+        { id: 11, name: 'Noor', profession: 'AI Developer', imageUrl: 'https://pub-d88e94f6ca8d4f2d9dcb7f5ba3ccfcf0.r2.dev/aboutPage/crew-members/noor.png' },
+        { id: 12, name: 'Alvira', profession: 'HR officer India', imageUrl: 'https://pub-d88e94f6ca8d4f2d9dcb7f5ba3ccfcf0.r2.dev/aboutPage/crew-members/Alvira.webp' },
+        { id: 13, name: 'Nawaz Aqiv Ahmed', profession: 'Senior Business Developer', imageUrl: '/images/team/nawaz.jpeg' },
+        { id: 14, name: 'Sagnik', profession: 'Business Development Expert', imageUrl: 'https://pub-d88e94f6ca8d4f2d9dcb7f5ba3ccfcf0.r2.dev/aboutPage/crew-members/Shagnik.webp' },
+        { id: 15, name: 'Adity Adhikary', profession: 'Human Resource Executive', imageUrl: '/images/team/adity.jpeg' },
+        { id: 16, name: 'Sumaiya', profession: 'App Developer', imageUrl: 'https://pub-d88e94f6ca8d4f2d9dcb7f5ba3ccfcf0.r2.dev/aboutPage/crew-members/sumaiya.png' },
+        { id: 17, name: 'Fatema', profession: 'Mobile App Developer', imageUrl: 'https://pub-d88e94f6ca8d4f2d9dcb7f5ba3ccfcf0.r2.dev/aboutPage/crew-members/Fatema.webp' },
+        { id: 18, name: 'MD. Shakil', profession: 'Senior Backend Developer', imageUrl: 'https://pub-d88e94f6ca8d4f2d9dcb7f5ba3ccfcf0.r2.dev/aboutPage/crew-members/MD.%20Shakil.webp' },
+        { id: 19, name: 'Tahamid', profession: 'Wordpress Developer', imageUrl: 'https://pub-d88e94f6ca8d4f2d9dcb7f5ba3ccfcf0.r2.dev/aboutPage/crew-members/tahamid.webp' },
+        { id: 20, name: 'Mafujur', profession: 'Frontend Developer', imageUrl: 'https://pub-d88e94f6ca8d4f2d9dcb7f5ba3ccfcf0.r2.dev/aboutPage/crew-members/Mafuzur.webp' },
+        { id: 21, name: 'Nafijur', profession: 'junior Backend Developer', imageUrl: 'https://pub-d88e94f6ca8d4f2d9dcb7f5ba3ccfcf0.r2.dev/aboutPage/crew-members/Nafijur.webp' },
         { id: 22, name: 'Sharmistha', profession: 'Student Counsellor Placement Executive', imageUrl: 'https://pub-d88e94f6ca8d4f2d9dcb7f5ba3ccfcf0.r2.dev/aboutPage/crew-members/Sharmistha.webp' },
         { id: 23, name: 'Tahsin', profession: 'Student Counsellor Placement Executive', imageUrl: 'https://pub-d88e94f6ca8d4f2d9dcb7f5ba3ccfcf0.r2.dev/aboutPage/crew-members/Tahsin.webp' },
         { id: 24, name: 'Mouradul', profession: 'Graphics Designer', imageUrl: 'https://pub-d88e94f6ca8d4f2d9dcb7f5ba3ccfcf0.r2.dev/aboutPage/crew-members/mouradul.webp' },

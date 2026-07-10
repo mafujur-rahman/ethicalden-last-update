@@ -85,7 +85,7 @@ const MarziiFooter = () => {
                 placeholder='blur'
                 blurDataURL={blurPlaceholder}
                 priority
-                loading="eager"
+                unoptimized
             />
 
             {/* Overlay */}

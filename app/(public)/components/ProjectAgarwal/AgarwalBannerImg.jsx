@@ -19,7 +19,7 @@ const AgarwalBannerImg = () => {
                 placeholder='blur'
                 blurDataURL={blurPlaceholder}
                 priority
-                loading="eager"
+                unoptimized
             />
         </div>
     );

@@ -75,7 +75,7 @@ const ELajArea5 = () => {
                         placeholder='blur'
                         blurDataURL={blurPlaceholder}
                         priority
-                        loading="eager"
+                        unoptimized
                         className="w-full shadow-md mb-6"
                         style={{ marginLeft: 'auto', marginRight: '0' }}
                     />

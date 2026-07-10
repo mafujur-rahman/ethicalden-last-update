@@ -19,7 +19,7 @@ const MakCommunityBannerImg = () => {
                 placeholder='blur'
                 blurDataURL={blurPlaceholder}
                 priority
-                loading="eager"
+                unoptimized
             />
         </div>
     );

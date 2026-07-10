@@ -74,7 +74,7 @@ const MakCommunityArea3 = () => {
                         className="w-full shadow-md mb-6"
                         style={{ marginLeft: 'auto', marginRight: '0' }}
                         priority
-                        loading="eager"
+                        unoptimized
                     />
                 </div>
 

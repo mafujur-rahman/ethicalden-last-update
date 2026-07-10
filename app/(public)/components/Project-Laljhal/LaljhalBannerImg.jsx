@@ -19,7 +19,7 @@ const LaljhalBannerImg = () => {
         className="w-full h-auto"
         placeholder='blur'
         priority
-        loading="eager"
+        unoptimized
         blurDataURL={blurPlaceholder}
       />
     </div>

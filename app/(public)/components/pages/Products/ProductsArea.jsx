@@ -103,7 +103,7 @@ function ProductsArea() {
                 blurDataURL={blurPlaceholder}
                 className="object-cover w-full h-full"
                 priority
-                loading="eager"
+                unoptimized
                 alt="Stockogen"
               />
               <div className="mt-3">
@@ -155,6 +155,7 @@ function ProductsArea() {
                 width={1000}
                 height={1000}
                 className="object-cover h-full w-full"
+                unoptimized
                 alt="School Hub"
               />
               <h3
@@ -177,6 +178,7 @@ function ProductsArea() {
               width={1000}
               alt="Ollent"
               className="h-[30vh] xl:h-[60vh] w-full object-cover"
+              unoptimized
             ></Image>
             <h3
               className="md:text-xl xl:text-2xl 2xl:text-3xl font-bold py-3 font-helvetica"

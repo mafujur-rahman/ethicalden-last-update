@@ -354,7 +354,8 @@ const ServicesArea = () => {
                 ref={video1Ref}
               >
                 <img
-                  src='https://pub-d88e94f6ca8d4f2d9dcb7f5ba3ccfcf0.r2.dev/servicePage/branding.gif'
+                  // src='https://pub-d88e94f6ca8d4f2d9dcb7f5ba3ccfcf0.r2.dev/servicePage/branding.gif'
+                  src='/images/services/branding.gif'
                   alt='Branding '
                   loading='lazy'
                   className='object-cover h-full w-full'
@@ -365,12 +366,12 @@ const ServicesArea = () => {
                   className='absolute inset-0 flex flex-col items-start bottom-8 -left-17 md:-left-20 justify-end text-white font-helvetica '
                   ref={el => (overlayTextRefs.current[0] = el)}
                 >
-                  <p className='text-xl font-bold font-ethosnova text-[#9EFCF1]'>
+                  <p className='text-xl font-bold font-ethosnova text-[#09e5e5]'>
                     01 / <span className='text-gray-500'>10</span>
                   </p>
                   <p
                     style={{ letterSpacing: '-0.05em' }}
-                    className='text-4xl md:text-4xl lg:text-5xl xl:text-6xl font-extrabold font-helvetica mt-4'
+                    className='text-4xl md:text-4xl lg:text-5xl xl:text-6xl font-extrabold font-helvetica mt-4 text-[#09e5e5]'
                   >
                     Branding
                   </p>
@@ -410,7 +411,8 @@ const ServicesArea = () => {
                 ref={video2Ref}
               >
                 <img
-                  src='https://pub-d88e94f6ca8d4f2d9dcb7f5ba3ccfcf0.r2.dev/servicePage/digital-marketing.gif'
+                  src='/images/services/digital-marketing.gif'
+                  // src='https://pub-d88e94f6ca8d4f2d9dcb7f5ba3ccfcf0.r2.dev/servicePage/digital-marketing.gif'
                   alt='Digital Marketing '
                   loading='lazy'
                   className='object-cover h-full w-full'
@@ -421,12 +423,12 @@ const ServicesArea = () => {
                   className='absolute inset-0 flex flex-col items-start bottom-8 -left-17 md:-left-20 justify-end text-white font-rota pointer-events-none'
                   ref={el => (overlayTextRefs.current[1] = el)}
                 >
-                  <p className='text-xl font-bold font-ethosnova text-[#9EFCF1]'>
+                  <p className='text-xl font-bold font-ethosnova text-[#09e5e5]'>
                     02 / <span className='text-gray-500'>10</span>
                   </p>
                   <p
                     style={{ letterSpacing: '-0.05em' }}
-                    className='text-4xl md:text-4xl lg:text-5xl xl:text-6xl font-helvetica font-extrabold mt-4'
+                    className='text-4xl md:text-4xl lg:text-5xl xl:text-6xl font-helvetica font-extrabold mt-4 text-[#09e5e5]'
                   >
                     Digital <br />
                     Marketing
@@ -469,7 +471,8 @@ const ServicesArea = () => {
                 ref={video3Ref}
               >
                 <img
-                  src='https://pub-d88e94f6ca8d4f2d9dcb7f5ba3ccfcf0.r2.dev/servicePage/seo.gif'
+                  src='/images/services/seo.gif'
+                  // src='https://pub-d88e94f6ca8d4f2d9dcb7f5ba3ccfcf0.r2.dev/servicePage/seo.gif'
                   alt='SEO '
                   loading='lazy'
                   className='object-cover h-full w-full'
@@ -480,12 +483,12 @@ const ServicesArea = () => {
                   className='absolute inset-0 flex flex-col items-start bottom-8 -left-17 md:-left-20 justify-end text-white font-rota '
                   ref={el => (overlayTextRefs.current[2] = el)}
                 >
-                  <p className='text-xl font-bold font-ethosnova text-[#9EFCF1]'>
+                  <p className='text-xl font-bold font-ethosnova text-[#09e5e5]'>
                     03 / <span className='text-gray-500'>10</span>
                   </p>
                   <p
                     style={{ letterSpacing: '-0.05em' }}
-                    className='text-4xl md:text-4xl lg:text-5xl xl:text-6xl font-helvetica font-extrabold mt-4'
+                    className='text-4xl md:text-4xl lg:text-5xl xl:text-6xl font-helvetica font-extrabold mt-4 text-[#09e5e5]'
                   >
                     SEO
                   </p>
@@ -526,7 +529,8 @@ const ServicesArea = () => {
                 ref={video4Ref}
               >
                 <img
-                  src='https://pub-d88e94f6ca8d4f2d9dcb7f5ba3ccfcf0.r2.dev/servicePage/ui-ux.gif'
+                  src='/images/services/ui-ux.gif'
+                  // src='https://pub-d88e94f6ca8d4f2d9dcb7f5ba3ccfcf0.r2.dev/servicePage/ui-ux.gif'
                   alt='UI/UX'
                   loading='lazy'
                   className='object-cover h-full w-full'
@@ -537,12 +541,12 @@ const ServicesArea = () => {
                   className='absolute inset-0 flex flex-col items-start bottom-8 -left-17 md:-left-20 justify-end text-white font-rota '
                   ref={el => (overlayTextRefs.current[3] = el)}
                 >
-                  <p className='text-xl font-bold font-ethosnova text-[#9EFCF1]'>
+                  <p className='text-xl font-bold font-ethosnova text-[#09e5e5]'>
                     04 / <span className='text-gray-500'>10</span>
                   </p>
                   <p
                     style={{ letterSpacing: '-0.05em' }}
-                    className='text-4xl md:text-4xl lg:text-5xl xl:text-6xl font-extrabold font-helvetica mt-4'
+                    className='text-4xl md:text-4xl lg:text-5xl xl:text-6xl font-extrabold font-helvetica mt-4 text-[#09e5e5]'
                   >
                     UI/UX <br />
                     Design
@@ -585,7 +589,8 @@ const ServicesArea = () => {
                 ref={video5Ref}
               >
                 <img
-                  src='https://pub-d88e94f6ca8d4f2d9dcb7f5ba3ccfcf0.r2.dev/servicePage/Software-Development.gif'
+                  src='/images/services/software-development.gif'
+                  // src='https://pub-d88e94f6ca8d4f2d9dcb7f5ba3ccfcf0.r2.dev/servicePage/Software-Development.gif'
                   alt='Software Development'
                   loading='lazy'
                   className='object-cover h-full w-full'
@@ -596,12 +601,12 @@ const ServicesArea = () => {
                   className='absolute inset-0 flex flex-col items-start bottom-8 -left-17 md:-left-20 justify-end text-white font-helvetica '
                   ref={el => (overlayTextRefs.current[4] = el)}
                 >
-                  <p className='text-xl font-bold font-ethosnova text-[#9EFCF1]'>
+                  <p className='text-xl font-bold font-ethosnova text-[#09e5e5]'>
                     05 / <span className='text-gray-500'>10</span>
                   </p>
                   <p
                     style={{ letterSpacing: '-0.05em' }}
-                    className='text-4xl md:text-4xl lg:text-5xl xl:text-6xl font-extrabold font-helvetica mt-4'
+                    className='text-4xl md:text-4xl lg:text-5xl xl:text-6xl font-extrabold font-helvetica mt-4 text-[#09e5e5]'
                   >
                     Software <br /> Development
                   </p>
@@ -643,7 +648,8 @@ const ServicesArea = () => {
                 ref={video6Ref}
               >
                 <img
-                  src='https://pub-d88e94f6ca8d4f2d9dcb7f5ba3ccfcf0.r2.dev/servicePage/web-development.gif'
+                  src='/images/services/web-development.gif'
+                  // src='https://pub-d88e94f6ca8d4f2d9dcb7f5ba3ccfcf0.r2.dev/servicePage/web-development.gif'
                   alt='Web Development'
                   loading='lazy'
                   className='object-cover h-full w-full'
@@ -654,12 +660,12 @@ const ServicesArea = () => {
                   className='absolute inset-0 flex flex-col items-start bottom-8 -left-17 md:-left-20 justify-end text-white font-rota '
                   ref={el => (overlayTextRefs.current[5] = el)}
                 >
-                  <p className='text-xl font-bold font-ethosnova text-[#9EFCF1]'>
+                  <p className='text-xl font-bold font-ethosnova text-[#09e5e5]'>
                     06 / <span className='text-gray-500'>10</span>
                   </p>
                   <p
                     style={{ letterSpacing: '-0.05em' }}
-                    className='text-4xl md:text-4xl lg:text-5xl xl:text-6xl font-helvetica font-extrabold mt-4'
+                    className='text-4xl md:text-4xl lg:text-5xl xl:text-6xl font-helvetica font-extrabold mt-4 text-[#09e5e5]'
                   >
                     Web <br />
                     Development
@@ -704,7 +710,8 @@ const ServicesArea = () => {
                 ref={video7Ref}
               >
                 <img
-                  src='https://pub-d88e94f6ca8d4f2d9dcb7f5ba3ccfcf0.r2.dev/servicePage/app-development.gif'
+                  src='/images/services/mobile-app-development.gif'
+                  // src='https://pub-d88e94f6ca8d4f2d9dcb7f5ba3ccfcf0.r2.dev/servicePage/app-development.gif'
                   alt='App Development'
                   loading='lazy'
                   className='object-cover h-full w-full'
@@ -715,12 +722,12 @@ const ServicesArea = () => {
                   className='absolute inset-0 flex flex-col items-start bottom-8 -left-17 md:-left-20 justify-end text-white font-rota '
                   ref={el => (overlayTextRefs.current[6] = el)}
                 >
-                  <p className='text-xl font-bold font-ethosnova text-[#9EFCF1]'>
+                  <p className='text-xl font-bold font-ethosnova text-[#09e5e5]'>
                     07 / <span className='text-gray-500'>10</span>
                   </p>
                   <p
                     style={{ letterSpacing: '-0.05em' }}
-                    className='text-4xl md:text-4xl lg:text-5xl xl:text-6xl font-helvetica font-extrabold mt-4'
+                    className='text-4xl md:text-4xl lg:text-5xl xl:text-6xl font-helvetica font-extrabold mt-4 text-[#09e5e5]'
                   >
                     Mobile App <br />
                     Development
@@ -762,7 +769,8 @@ const ServicesArea = () => {
                 ref={video8Ref}
               >
                 <img
-                  src='https://pub-d88e94f6ca8d4f2d9dcb7f5ba3ccfcf0.r2.dev/servicePage/cyber-security.gif'
+                  src='/images/services/cyber-security.gif'
+                  // src='https://pub-d88e94f6ca8d4f2d9dcb7f5ba3ccfcf0.r2.dev/servicePage/cyber-security.gif'
                   alt='Cyber Security '
                   loading='lazy'
                   className='object-cover h-full w-full'
@@ -773,12 +781,12 @@ const ServicesArea = () => {
                   className='absolute inset-0 flex flex-col items-start bottom-8 -left-17 md:-left-20 justify-end text-white font-rota '
                   ref={el => (overlayTextRefs.current[7] = el)}
                 >
-                  <p className='text-xl font-bold font-ethosnova text-[#9EFCF1]'>
+                  <p className='text-xl font-bold font-ethosnova text-[#09e5e5]'>
                     08 / <span className='text-gray-500'>10</span>
                   </p>
                   <p
                     style={{ letterSpacing: '-0.05em' }}
-                    className='text-4xl md:text-4xl lg:text-5xl xl:text-6xl font-extrabold font-helvetica mt-4'
+                    className='text-4xl md:text-4xl lg:text-5xl xl:text-6xl font-extrabold font-helvetica mt-4 text-[#09e5e5]'
                   >
                     Cyber <br />
                     Security
@@ -822,7 +830,8 @@ const ServicesArea = () => {
                 ref={video9Ref}
               >
                 <img
-                  src='https://pub-d88e94f6ca8d4f2d9dcb7f5ba3ccfcf0.r2.dev/servicePage/ai-services.gif'
+                  src='/images/services/ai-services.gif'
+                  // src='https://pub-d88e94f6ca8d4f2d9dcb7f5ba3ccfcf0.r2.dev/servicePage/ai-services.gif'
                   alt='AI Services '
                   loading='lazy'
                   className='object-cover h-full w-full'
@@ -833,12 +842,12 @@ const ServicesArea = () => {
                   className='absolute inset-0 flex flex-col items-start bottom-8 -left-17 md:-left-20 justify-end text-white font-helvetica '
                   ref={el => (overlayTextRefs.current[8] = el)}
                 >
-                  <p className='text-xl font-bold font-ethosnova text-[#9EFCF1]'>
+                  <p className='text-xl font-bold font-ethosnova text-[#09e5e5]'>
                     09 / <span className='text-gray-500'>10</span>
                   </p>
                   <p
                     style={{ letterSpacing: '-0.05em' }}
-                    className='text-4xl md:text-4xl lg:text-5xl xl:text-6xl font-extrabold font-helvetica mt-4'
+                    className='text-4xl md:text-4xl lg:text-5xl xl:text-6xl font-extrabold font-helvetica mt-4 text-[#09e5e5]'
                   >
                     AI <br /> Services
                   </p>
@@ -878,7 +887,8 @@ const ServicesArea = () => {
                 ref={video10Ref}
               >
                 <img
-                  src='https://pub-d88e94f6ca8d4f2d9dcb7f5ba3ccfcf0.r2.dev/servicePage/video-editing.gif'
+                  src='/images/services/video-editing.gif'
+                  // src='https://pub-d88e94f6ca8d4f2d9dcb7f5ba3ccfcf0.r2.dev/servicePage/video-editing.gif'
                   alt='Video Editing'
                   loading='lazy'
                   className='object-cover h-full w-full'
@@ -889,12 +899,12 @@ const ServicesArea = () => {
                   className='absolute inset-0 flex flex-col items-start bottom-8 -left-17 md:-left-20 justify-end text-white font-rota '
                   ref={el => (overlayTextRefs.current[9] = el)}
                 >
-                  <p className='text-xl font-bold font-ethosnova text-[#9EFCF1]'>
+                  <p className='text-xl font-bold font-ethosnova text-[#09e5e5]'>
                     10 / <span className='text-gray-500'>10</span>
                   </p>
                   <p
                     style={{ letterSpacing: '-0.05em' }}
-                    className='text-4xl md:text-4xl lg:text-5xl xl:text-6xl font-helvetica font-extrabold mt-4'
+                    className='text-4xl md:text-4xl lg:text-5xl xl:text-6xl font-helvetica font-extrabold mt-4 text-[#09e5e5]'
                   >
                     Photo & Video <br />
                     Editing

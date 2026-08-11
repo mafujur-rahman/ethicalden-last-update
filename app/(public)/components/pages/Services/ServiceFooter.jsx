@@ -1,7 +1,7 @@
 // components/service/ServiceFooter.js
 'use client';
 
-import React, { useRef, useState } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import gsap from 'gsap';
 import Image from 'next/image';
@@ -11,6 +11,7 @@ export default function ServiceFooter({ service, nextService, link }) {
   const contentRef = useRef(null);
   const isNavigating = useRef(false);
   const [isExiting, setIsExiting] = useState(false);
+  const [hasTriggered, setHasTriggered] = useState(false);
   const router = useRouter();
 
   const navigateToNextService = () => {
@@ -56,6 +57,7 @@ export default function ServiceFooter({ service, nextService, link }) {
             setTimeout(() => {
               isNavigating.current = false;
               setIsExiting(false);
+              setHasTriggered(false);
             }, 300);
           }
         });
@@ -63,17 +65,37 @@ export default function ServiceFooter({ service, nextService, link }) {
     });
   };
 
-  const handleKeyDown = (e) => {
-    if (e.key === 'Enter' || e.key === ' ') {
-      e.preventDefault();
-      navigateToNextService();
-    }
-  };
+  useEffect(() => {
+    const section = sectionRef.current;
+    if (!section) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          // Trigger navigation when section is fully visible
+          if (entry.isIntersecting && entry.intersectionRatio >= 0.8 && !hasTriggered) {
+            setHasTriggered(true);
+            navigateToNextService();
+          }
+        });
+      },
+      {
+        threshold: [0.8], // Trigger when 80% visible
+        rootMargin: '0px',
+      }
+    );
+
+    observer.observe(section);
+
+    return () => {
+      observer.disconnect();
+    };
+  }, [hasTriggered]);
 
   return (
     <section 
       ref={sectionRef}
-      className="w-full bg-[#1e1e1e] text-white px-6 md:px-10 lg:px-12 xl:px-20 py-12 md:py-14 lg:py-18 xl:py-28 transition-opacity duration-300"
+      className="w-full bg-[#1e1e1e] text-white px-6 md:px-10 lg:px-12 xl:px-20 py-12 md:py-14 lg:py-20 xl:py-28 transition-opacity duration-300"
     >
       <div
         ref={contentRef}
@@ -89,14 +111,8 @@ export default function ServiceFooter({ service, nextService, link }) {
           justify-center
           overflow-hidden
           rounded-[16px]
-          cursor-pointer
           group
         "
-        onClick={navigateToNextService}
-        onKeyDown={handleKeyDown}
-        role="button"
-        tabIndex={0}
-        aria-label={`Navigate to ${nextService?.title || service?.footerTitle || 'next service'}`}
       >
         {/* Background Image */}
         {service?.footerImage ? (
@@ -126,15 +142,15 @@ export default function ServiceFooter({ service, nextService, link }) {
 
           <div className="mt-[30px] flex items-center gap-3 text-white/80">
             <p className="md:text-[16px] lg:text-[18px] xl:text-[20px] font-normal leading-none tracking-[-0.02em]">
-              Click to continue
+              Scroll to continue
             </p>
             <svg 
-              className="w-6 h-6 transition-transform duration-300 group-hover:translate-x-2" 
+              className="w-6 h-6 animate-bounce" 
               fill="none" 
               stroke="currentColor" 
               viewBox="0 0 24 24"
             >
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
             </svg>
           </div>
         </div>

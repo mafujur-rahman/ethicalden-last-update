@@ -58,14 +58,12 @@ export default function ServiceAbout({ service }) {
     // Kill any existing ScrollTriggers
     ScrollTrigger.getAll().forEach(st => st.kill());
 
-    // Create animation that follows scroll exactly
+    // Create animation that follows scroll exactly - WITHOUT PIN
     const tl = gsap.timeline({
       scrollTrigger: {
         trigger: section,
-        start: "center center",
-        end: "bottom center",
-        pin: true,
-        pinSpacing: true,
+        start: "top bottom",
+        end: "bottom top",
         scrub: 0.5,
         invalidateOnRefresh: true,
         markers: false,

@@ -9,15 +9,31 @@ import { usePathname } from "next/navigation";
 
 gsap.registerPlugin(ScrollTrigger);
 
+// Service data with numbers
+const servicesData = [
+    { id: '04', name: 'Branding', slug: 'branding' },
+    { id: '06', name: 'Digital Marketing', slug: 'digital-marketing' },
+    { id: '04', name: 'SEO', slug: 'seo' },
+    { id: '05', name: 'UI/UX Design', slug: 'ui-ux-design' },
+    { id: '05', name: 'Software Development', slug: 'software-development' },
+    { id: '05', name: 'Web Development', slug: 'web-development' },
+    { id: '04', name: 'Mobile App Development', slug: 'mobile-app-development' },
+    { id: '05', name: 'Cyber Security', slug: 'cyber-security' },
+    { id: '04', name: 'AI Services', slug: 'ai-services' },
+    { id: '05', name: 'Photo & Video Editing', slug: 'photo-video-editing' }
+];
+
 const Navbar = ({ backgroundColor = "white", textColor = "black" }) => {
     const pathname = usePathname();
     const titleRef = useRef(null);
     const charRefs = useRef([]);
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [subMenuOpen, setSubMenuOpen] = useState(false);
+    const [isServicesOpen, setIsServicesOpen] = useState(false);
     const mobileMenuRef = useRef(null);
     const menuItemsRef = useRef([]);
     const menuIconRef = useRef(null);
+    const dropdownTimeoutRef = useRef(null);
 
     const isActive = (href) => {
         if (href === '/') return pathname === href;
@@ -124,6 +140,22 @@ const Navbar = ({ backgroundColor = "white", textColor = "black" }) => {
         };
     }, []);
 
+    // Services dropdown hover handlers
+    const handleServicesMouseEnter = () => {
+        clearTimeout(dropdownTimeoutRef.current);
+        setIsServicesOpen(true);
+    };
+
+    const handleServicesMouseLeave = () => {
+        dropdownTimeoutRef.current = setTimeout(() => {
+            setIsServicesOpen(false);
+        }, 200);
+    };
+
+    const handleServiceItemClick = () => {
+        setIsServicesOpen(false);
+    };
+
     // Mobile menu animations
     useEffect(() => {
         if (isMenuOpen) {
@@ -197,6 +229,13 @@ const Navbar = ({ backgroundColor = "white", textColor = "black" }) => {
         }
     };
 
+    const toggleMobileServices = () => {
+        const mobileServices = document.getElementById('mobile-services');
+        if (mobileServices) {
+            mobileServices.classList.toggle('hidden');
+        }
+    };
+
     return (
         <div className="relative z-30 px-6 md:px-10 lg:px-12 xl:px-20 pt-5" style={{ backgroundColor }}>
             <nav className="flex items-center justify-between py-6">
@@ -229,17 +268,50 @@ const Navbar = ({ backgroundColor = "white", textColor = "black" }) => {
                         Our Works
                     </a>
 
-                    <a
-                        href="/services"
-                        className={`relative font-medium 
+                    {/* Services with Dropdown */}
+                    <div 
+                        className="relative"
+                        onMouseEnter={handleServicesMouseEnter}
+                        onMouseLeave={handleServicesMouseLeave}
+                    >
+                        <a
+                            href="/services"
+                            className={`relative font-medium flex items-center gap-1
                                 ${isActive('/services')
                                 ? 'line-through decoration-2 decoration-current pointer-events-none'
                                 : 'after:content-[""] after:block after:h-[2px] after:bg-current after:scale-x-0 after:origin-left after:transition-transform after:duration-300 hover:after:scale-x-100'
                             }`}
-                    >
-                        Services
-                    </a>
-                    
+                        >
+                            Services
+                            <HiChevronDown 
+                                className={`transition-transform duration-300 ${isServicesOpen ? 'rotate-180' : ''}`}
+                                size={18}
+                            />
+                        </a>
+
+                        {/* Services Dropdown */}
+                        {isServicesOpen && (
+                            <div className="absolute left-1/2 -translate-x-1/2 mt-3 bg-[#1e1e1e] border border-gray-700 rounded-xl py-3 min-w-[800px] z-50 shadow-2xl">
+                                <div className="grid grid-cols-3 gap-8 p-8">
+                                    {servicesData.map((service) => (
+                                        <Link
+                                            key={service.slug}
+                                            href={`/services/${service.slug}`}
+                                            onClick={handleServiceItemClick}
+                                            className="flex items-center gap-3 px-5 py-3 hover:bg-white/5 transition-colors border border-gray-700/50 "
+                                        >
+                                            <span className="text-xs font-bold text-[#09e5e5] opacity-60 min-w-[28px]">
+                                                {service.id}
+                                            </span>
+                                            <span className="text-sm font-medium text-white/80 hover:text-white whitespace-nowrap">
+                                                {service.name}
+                                            </span>
+                                        </Link>
+                                    ))}
+                                </div>
+                            </div>
+                        )}
+                    </div>
 
                     <a
                         href="/products"
@@ -252,7 +324,7 @@ const Navbar = ({ backgroundColor = "white", textColor = "black" }) => {
                         Products
                     </a>
 
-
+                    {/* Sub brands - KEPT EXACTLY AS ORIGINAL */}
                     <div className="relative group">
                         <button className="flex items-center font-medium relative">
                             <span className="mr-1 relative after:content-[''] after:block after:h-[2px] after:bg-current after:scale-x-0 after:origin-left after:transition-transform after:duration-300 group-hover:after:scale-x-100">
@@ -282,21 +354,6 @@ const Navbar = ({ backgroundColor = "white", textColor = "black" }) => {
                             </a>
                         </div>
                     </div>
-
-                    {/* <a
-                        href="/sign-in"
-                        className={`relative font-medium 
-                                ${isActive('/sign-in')
-                                ? 'line-through decoration-2 decoration-current pointer-events-none'
-                                : 'after:content-[""] after:block after:h-[2px] after:bg-current after:scale-x-0 after:origin-left after:transition-transform after:duration-300 hover:after:scale-x-100'
-                            }`}
-                    >
-                        Sign In
-                    </a> */}
-
-                    
-
-
 
                     <Link
                         ref={buttonRef}
@@ -334,13 +391,12 @@ const Navbar = ({ backgroundColor = "white", textColor = "black" }) => {
                 className={`fixed top-0 left-0 w-full h-screen bg-white text-black z-40 flex flex-col justify-center p-6 space-y-6 xl:hidden ${!isMenuOpen ? 'hidden' : ''}`}
                 style={{ transform: 'translateY(-100%)' }}
             >
-
-
                 {/* Menu Links */}
                 <div className="flex flex-col items-start space-y-4 pl-6">
                     <a
                         ref={addMenuItemToRefs}
                         href="/about-den"
+                        onClick={handleCloseMenu}
                         className="text-4xl font-semibold hover:underline opacity-0"
                     >
                         About Den
@@ -348,26 +404,48 @@ const Navbar = ({ backgroundColor = "white", textColor = "black" }) => {
                     <a
                         ref={addMenuItemToRefs}
                         href="/our-works"
+                        onClick={handleCloseMenu}
                         className="text-4xl font-semibold hover:underline opacity-0"
                     >
                         Our Works
                     </a>
-                    <a
-                        ref={addMenuItemToRefs}
-                        href="/services"
-                        className="text-4xl font-semibold hover:underline opacity-0"
-                    >
-                        Services
-                    </a>
                     
+                    {/* Services in Mobile with Sub-items */}
+                    <div className="w-full">
+                        <div
+                            ref={addMenuItemToRefs}
+                            className="text-4xl font-semibold hover:underline opacity-0 cursor-pointer"
+                            onClick={toggleMobileServices}
+                        >
+                            Services
+                        </div>
+                        <div id="mobile-services" className="hidden mt-4 space-y-3 pl-4">
+                            {servicesData.map((service) => (
+                                <Link
+                                    key={service.slug}
+                                    href={`/services/${service.slug}`}
+                                    onClick={handleCloseMenu}
+                                    className="flex items-center gap-3 text-2xl font-medium text-gray-700 hover:text-[#09e5e5] transition-colors"
+                                >
+                                    <span className="text-sm font-bold text-[#09e5e5] opacity-60">
+                                        {service.id}
+                                    </span>
+                                    <span>{service.name}</span>
+                                </Link>
+                            ))}
+                        </div>
+                    </div>
+
                     <a
                         ref={addMenuItemToRefs}
                         href="/products"
+                        onClick={handleCloseMenu}
                         className="text-4xl font-semibold hover:underline opacity-0"
                     >
                         Products
                     </a>
-                    {/* Sub Brands Title */}
+                    
+                    {/* Sub Brands Title - KEPT EXACTLY AS ORIGINAL */}
                     <div
                         ref={addMenuItemToRefs}
                         className="text-4xl font-semibold hover:underline opacity-0"
@@ -375,7 +453,7 @@ const Navbar = ({ backgroundColor = "white", textColor = "black" }) => {
                         Sub Brands
                     </div>
 
-                    {/* Sub-brands */}
+                    {/* Sub-brands - KEPT EXACTLY AS ORIGINAL */}
                     <div className="flex flex-col items-start space-y-4 mt-2 pl-4">
                         <a
                             ref={addMenuItemToRefs}
@@ -394,16 +472,11 @@ const Navbar = ({ backgroundColor = "white", textColor = "black" }) => {
                             Hivyr
                         </a>
                     </div>
-                    {/* <a
-                        ref={addMenuItemToRefs}
-                        href="/sign-in"
-                        className="text-4xl font-semibold hover:underline opacity-0"
-                    >
-                        Sign In
-                    </a> */}
+
                     <Link
                         ref={addMenuItemToRefs}
                         href="/contact"
+                        onClick={handleCloseMenu}
                         className="rounded-full text-[#09e5e5] text-4xl font-semibold opacity-0"
                     >
                         Let's Talk

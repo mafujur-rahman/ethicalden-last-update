@@ -1,4 +1,3 @@
-// components/service/ServiceBanner.js
 "use client";
 
 import { useEffect, useRef, useState } from 'react';
@@ -8,6 +7,7 @@ export default function ServiceBanner({ service }) {
   const titleRef = useRef(null);
   const containerRef = useRef(null);
   const titleContainerRef = useRef(null);
+  const videoRef = useRef(null);
   const [isScrolled, setIsScrolled] = useState(false);
 
   useEffect(() => {
@@ -236,11 +236,11 @@ export default function ServiceBanner({ service }) {
   return (
     <section 
       ref={containerRef}
-      className="w-full bg-[#1e1e1e] text-white px-6 md:px-10 lg:px-12 xl:px-20 pt-5 sm:pt-6 pb-4 overflow-hidden relative"
+      className="w-full bg-[#1e1e1e] text-white px-5 sm:px-6 md:px-8 lg:px-10 xl:px-16 2xl:px-20 pt-4 sm:pt-5 md:pt-6 lg:pt-7 xl:pt-8 pb-3 sm:pb-4 md:pb-5 lg:pb-6 overflow-hidden relative"
     >
       {/* Breadcrumb */}
-      <div className="mb-7 sm:mb-8">
-        <p className="text-[12px] font-bold uppercase tracking-[0.02em] text-white/90">
+      <div className="mb-6 sm:mb-7 md:mb-8 lg:mb-9 xl:mb-10 hidden md:block">
+        <p className="text-[10px] sm:text-[11px] md:text-[12px] lg:text-[13px] xl:text-[14px] font-bold uppercase tracking-[0.02em] text-white/90">
           SERVICES / {service?.category || "BRANDING"}
         </p>
       </div>
@@ -248,7 +248,7 @@ export default function ServiceBanner({ service }) {
       {/* Title Container */}
       <div 
         ref={titleContainerRef}
-        className="mb-7 sm:mb-8 overflow-hidden relative"
+        className="mb-5 sm:mb-6 md:mb-7 lg:mb-8 xl:mb-9 overflow-hidden relative" 
       >
         <div
           className={`
@@ -263,15 +263,11 @@ export default function ServiceBanner({ service }) {
           <div
             ref={titleRef}
             className={`
-              text-[42px]
-              sm:text-[52px]
-              md:text-[64px]
-              lg:text-[72px]
-              xl:text-[96px]
-              leading-[0.95]
+              text-[48px] lg:text-[64px] xl:text-[96px] 2xl:text-[120px]
+              leading-[0.95] sm:leading-[0.92] md:leading-[0.9] lg:leading-[0.88] xl:leading-[0.85]
               font-bold
               uppercase
-              tracking-[-0.025em]
+              tracking-[-0.02em] sm:tracking-[-0.025em] md:tracking-[-0.025em] lg:tracking-[-0.03em] xl:tracking-[-0.035em] 2xl:tracking-[-0.04em]
               will-change-transform
               ${isScrolled ? 'flex flex-col items-start' : ''}
             `}
@@ -285,35 +281,44 @@ export default function ServiceBanner({ service }) {
         </div>
       </div>
 
-      {/* Video Placeholder */}
+      {/* Video */}
       <div
         className="
           relative
           w-full
-          h-[220px]
-          sm:h-[280px]
-          md:h-[360px]
-          lg:h-[390px]
-          xl:h-[550px]
-          rounded-[10px]
-          sm:rounded-[11px]
+          h-[340px] lg:h-[420px] xl:h-[550px] 2xl:h-[650px]
+          rounded-[8px] sm:rounded-[10px] md:rounded-[11px] lg:rounded-[12px] xl:rounded-[14px] 2xl:rounded-[16px]
           overflow-hidden
           bg-[#d9d9d9]
         "
       >
-        {/* Video will go here later */}
+        {service?.bannerVideo ? (
+          <video
+            ref={videoRef}
+            className="w-full h-full object-cover"
+            autoPlay
+            muted
+            loop
+            playsInline
+          >
+            <source src={service.bannerVideo} type="video/mp4" />
+            Your browser does not support the video tag.
+          </video>
+        ) : (
+          <div className="w-full h-full flex items-center justify-center text-gray-400">
+            No video available
+          </div>
+        )}
       </div>
 
       {/* Description */}
-      <div className="my-7 sm:my-8">
+      <div className="my-5 sm:my-6 md:my-7 lg:my-8 xl:my-9 2xl:my-10">
         <p
           className="
-            text-[10px]
-            sm:text-[11px]
-            md:text-[20px]
-            leading-[1.5]
+            text-[16px] lg:text-[17px] xl:text-[20px] 2xl:text-[22px]
+            leading-[1.4] sm:leading-[1.45] md:leading-[1.5] lg:leading-[1.5] xl:leading-[1.55] 2xl:leading-[1.6]
             font-normal
-            text-white/90
+            text-white
           "
         >
           {service?.bannerDescription ||

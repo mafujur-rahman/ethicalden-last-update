@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import Image from "next/image";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -10,7 +10,23 @@ gsap.registerPlugin(ScrollTrigger);
 export default function ServiceCoreOfferings({ service }) {
   const sectionRef = useRef(null);
   const imageRefs = useRef([]);
-  const contentRefs = useRef([]);
+
+  // Reel (filmstrip) refs — one translating stack per column, each stack
+  // holds every offering's number/title/description on top of one another.
+  const numberStackRef = useRef(null);
+  const titleStackRef = useRef(null);
+  const descriptionStackRef = useRef(null);
+  const numberItemRefs = useRef([]);
+  const titleItemRefs = useRef([]);
+  const descriptionItemRefs = useRef([]);
+
+  // Measured row heights so every row in a stack is the same height —
+  // that's what makes a simple "index * rowHeight" translate line up.
+  const [rowHeights, setRowHeights] = useState({
+    number: 0,
+    title: 0,
+    description: 0,
+  });
 
   const offerings =
     service?.coreOfferings && service.coreOfferings.length > 0
@@ -20,13 +36,40 @@ export default function ServiceCoreOfferings({ service }) {
           description: `Professional ${feature.toLowerCase()} services tailored to your needs.`,
         })) || [];
 
+  // -----------------------------------------
+  // Measure natural row heights (tallest item per column wins, so a
+  // 2-line title doesn't get clipped by a 1-line row).
+  // -----------------------------------------
+  useLayoutEffect(() => {
+    if (offerings.length < 2) return;
+
+    function measure() {
+      const tallest = (refs) =>
+        refs.current
+          .filter(Boolean)
+          .reduce((max, el) => Math.max(max, el.offsetHeight), 0);
+
+      setRowHeights({
+        number: tallest(numberItemRefs),
+        title: tallest(titleItemRefs),
+        description: tallest(descriptionItemRefs),
+      });
+    }
+
+    measure();
+    window.addEventListener("resize", measure);
+    return () => window.removeEventListener("resize", measure);
+  }, [offerings.length]);
+
   useEffect(() => {
     if (!sectionRef.current || offerings.length < 2) return;
+    if (!rowHeights.number || !rowHeights.title || !rowHeights.description) return;
+
+    // Skip animations for devices <= 1024px
+    if (window.innerWidth <= 1024) return;
 
     const ctx = gsap.context(() => {
       const images = imageRefs.current.filter(Boolean);
-      const contents = contentRefs.current.filter(Boolean);
-
       if (images.length < 2) return;
 
       // -----------------------------------------
@@ -40,36 +83,10 @@ export default function ServiceCoreOfferings({ service }) {
       });
 
       // -----------------------------------------
-      // Initial left content state
+      // Initial reel position
       // -----------------------------------------
-      contents.forEach((content, index) => {
-        const number = content.querySelector('.left-number');
-        const title = content.querySelector('.left-title');
-        const description = content.querySelector('.left-description');
-        
-        if (index === 0) {
-          // First item is visible at its position
-          gsap.set(content, { autoAlpha: 1 });
-          gsap.set([number, title, description], {
-            autoAlpha: 1,
-            y: 0,
-          });
-        } else {
-          // Hidden items - each element at its own bottom position
-          gsap.set(content, { autoAlpha: 0 });
-          gsap.set(number, {
-            autoAlpha: 0,
-            y: 20, // Just below its own position
-          });
-          gsap.set(title, {
-            autoAlpha: 0,
-            y: 20, // Just below its own position
-          });
-          gsap.set(description, {
-            autoAlpha: 0,
-            y: 20, // Just below its own position
-          });
-        }
+      gsap.set([numberStackRef.current, titleStackRef.current, descriptionStackRef.current], {
+        y: 0,
       });
 
       // -----------------------------------------
@@ -88,17 +105,12 @@ export default function ServiceCoreOfferings({ service }) {
         },
       });
 
-      // -----------------------------------------
-      // Image + Content transitions
-      // -----------------------------------------
       offerings.forEach((_, index) => {
         if (index === offerings.length - 1) return;
 
         const currentImage = images[index];
-        const currentContent = contents[index];
-        const nextContent = contents[index + 1];
 
-        // Image goes from 100% -> 0%
+        // Image goes from 100% -> 0% (unchanged)
         timeline.to(
           currentImage,
           {
@@ -110,129 +122,51 @@ export default function ServiceCoreOfferings({ service }) {
         );
 
         // -----------------------------------------
-        // Left Content - Previous goes UP, Next comes from its own BOTTOM
+        // Text reel — one hard, masked translateY step per column,
+        // all three columns moving together mid-scroll (matches the
+        // reference: text holds, then snaps to the next row, clipped
+        // by the overflow-hidden window rather than fading).
         // -----------------------------------------
-        const currentNumber = currentContent?.querySelector('.left-number');
-        const currentTitle = currentContent?.querySelector('.left-title');
-        const currentDescription = currentContent?.querySelector('.left-description');
-        const nextNumber = nextContent?.querySelector('.left-number');
-        const nextTitle = nextContent?.querySelector('.left-title');
-        const nextDescription = nextContent?.querySelector('.left-description');
+        const nextIndex = index + 1;
 
-        // ---- PREVIOUS CONTENT SLIDES UP FROM ITS POSITION ----
-        // Number slides up
         timeline.to(
-          currentNumber,
+          numberStackRef.current,
           {
-            y: -30,
-            autoAlpha: 0,
+            y: -nextIndex * rowHeights.number,
             duration: 0.5,
-            ease: "power2.in",
+            ease: "power2.inOut",
           },
-          index + 0.7
+          index + 0.5
         );
 
-        // Title slides up
         timeline.to(
-          currentTitle,
+          titleStackRef.current,
           {
-            y: -30,
-            autoAlpha: 0,
+            y: -nextIndex * rowHeights.title,
             duration: 0.5,
-            ease: "power2.in",
+            ease: "power2.inOut",
           },
-          index + 0.75
+          index + 0.5
         );
 
-        // Description slides up
         timeline.to(
-          currentDescription,
+          descriptionStackRef.current,
           {
-            y: -30,
-            autoAlpha: 0,
+            y: -nextIndex * rowHeights.description,
             duration: 0.5,
-            ease: "power2.in",
+            ease: "power2.inOut",
           },
-          index + 0.8
-        );
-
-        // ---- NEXT CONTENT COMES FROM ITS OWN BOTTOM ----
-        // Show next content container
-        timeline.set(
-          nextContent,
-          {
-            autoAlpha: 1,
-          },
-          index + 0.8
-        );
-
-        // Number comes from its own bottom
-        timeline.fromTo(
-          nextNumber,
-          {
-            y: 20,
-            autoAlpha: 0,
-          },
-          {
-            y: 0,
-            autoAlpha: 1,
-            duration: 0.5,
-            ease: "power2.out",
-          },
-          index + 0.85
-        );
-
-        // Title comes from its own bottom
-        timeline.fromTo(
-          nextTitle,
-          {
-            y: 20,
-            autoAlpha: 0,
-          },
-          {
-            y: 0,
-            autoAlpha: 1,
-            duration: 0.5,
-            ease: "power2.out",
-          },
-          index + 0.9
-        );
-
-        // Description comes from its own bottom
-        timeline.fromTo(
-          nextDescription,
-          {
-            y: 20,
-            autoAlpha: 0,
-          },
-          {
-            y: 0,
-            autoAlpha: 1,
-            duration: 0.5,
-            ease: "power2.out",
-          },
-          index + 0.95
-        );
-
-        // Hide current content completely
-        timeline.to(
-          currentContent,
-          {
-            autoAlpha: 0,
-            duration: 0.1,
-          },
-          index + 1.0
+          index + 0.5
         );
       });
 
-      // Refresh after timeline is created
       ScrollTrigger.refresh();
     }, sectionRef);
 
     return () => {
       ctx.revert();
     };
-  }, [offerings.length]);
+  }, [offerings.length, rowHeights]);
 
   // ==========================================
   // FALLBACK
@@ -240,8 +174,8 @@ export default function ServiceCoreOfferings({ service }) {
   if (offerings.length === 0) {
     return (
       <section className="relative min-h-screen w-full overflow-hidden bg-black">
-        <div className="absolute left-10 top-[11%] z-10 md:left-12 lg:left-14 xl:left-20">
-          <span className="text-[11px] font-medium uppercase tracking-[-0.01em] text-white">
+        <div className="absolute left-0 top-[11%] z-10 md:left-12 lg:left-14 xl:left-20">
+          <span className="text-[16px] font-bold uppercase tracking-[-0.01em] text-white">
             Core Offerings
           </span>
         </div>
@@ -270,44 +204,43 @@ export default function ServiceCoreOfferings({ service }) {
       className="relative min-h-screen w-full overflow-hidden bg-[#1e1e1e] text-[#ffffff]"
     >
       {/* ==========================================
-          SECTION LABEL
+          SECTION LABEL - Stays at top of section for all devices
       =========================================== */}
-      <div className="absolute left-10 top-[11%] z-[100] md:left-12 lg:left-14 xl:left-20">
+      <div className="absolute left-6 top-0 z-[100] md:left-10 md:top-10 lg:left-12 xl:left-20 xl:top-[5%]">
         <span className="text-[16px] font-bold uppercase tracking-[-0.01em] text-white">
           Core Offerings
         </span>
       </div>
 
       {/* ==========================================
-          LEFT CONTENT - Previous goes UP, Next comes from own BOTTOM
+          DESKTOP VERSION (> 1024px) - With animations
       =========================================== */}
-      <div
-        className="
-          relative
-          z-[50]
-          flex
-          min-h-screen
-          w-[50%]
-          flex-col
-          justify-center
-          pl-10
-          pr-16
-          pt-[7%]
-          pb-[7%]
-          md:pl-12
-          md:pr-20
-          lg:pl-14
-          lg:pr-24
-          xl:pl-20
-          xl:pr-32
-        "
-      >
-        {offerings.map((offering, index) => (
+      <div className="hidden xl:block">
+        {/* LEFT CONTENT — masked reel: each column is a fixed-height
+            overflow-hidden window with every offering's text stacked
+            inside it; the stack translates as one block. */}
+        <div
+          className="
+            relative
+            z-[50]
+            flex
+            min-h-screen
+            w-[50%]
+            flex-col
+            justify-center
+            pl-10
+            pr-16
+            pt-[7%]
+            pb-[7%]
+            md:pl-12
+            md:pr-20
+            lg:pl-14
+            lg:pr-24
+            xl:pl-20
+            xl:pr-32
+          "
+        >
           <div
-            key={index}
-            ref={(element) => {
-              contentRefs.current[index] = element;
-            }}
             className="
               pointer-events-none
               absolute
@@ -320,108 +253,204 @@ export default function ServiceCoreOfferings({ service }) {
               xl:left-20
             "
           >
-            {/* Number */}
-            <div className="left-number mb-[38px] overflow-hidden">
-              <div className="transform-gpu">
-                <span
-                  className="
-                    text-[40px]
-                    font-bold
-                    leading-none
-                    tracking-[-0.04em]
-                    text-white
-                    inline-block
-                  "
-                >
-                  {String(index + 1).padStart(2, "0")}
-                </span>
+            {/* Number reel */}
+            <div
+              className="mb-[38px] overflow-hidden"
+              style={rowHeights.number ? { height: rowHeights.number } : undefined}
+            >
+              <div ref={numberStackRef}>
+                {offerings.map((offering, index) => (
+                  <div
+                    key={index}
+                    ref={(element) => {
+                      numberItemRefs.current[index] = element;
+                    }}
+                    className="flex items-center"
+                    style={
+                      rowHeights.number ? { height: rowHeights.number } : undefined
+                    }
+                  >
+                    <span
+                      className="
+                        text-[40px]
+                        font-bold
+                        leading-none
+                        tracking-[-0.04em]
+                        text-white
+                      "
+                    >
+                      {String(index + 1).padStart(2, "0")}
+                    </span>
+                  </div>
+                ))}
               </div>
             </div>
 
-            {/* Title */}
-            <div className="left-title overflow-hidden mb-[26px]">
-              <div className="transform-gpu">
-                <h2
-                  className="
-                    max-w-[420px]
-                    text-[48px]
-                    font-bold
-                    leading-[1.08]
-                    tracking-[-0.035em]
-                    text-white
-                  "
-                >
-                  {offering?.title || "What We Deliver"}
-                </h2>
+            {/* Title reel */}
+            <div
+              className="mb-[26px] overflow-hidden xl:max-w-[517px] 2xl:max-w-[550px]"
+              style={rowHeights.title ? { height: rowHeights.title } : undefined}
+            >
+              <div ref={titleStackRef}>
+                {offerings.map((offering, index) => (
+                  <div
+                    key={index}
+                    ref={(element) => {
+                      titleItemRefs.current[index] = element;
+                    }}
+                    className="flex items-center"
+                    style={rowHeights.title ? { height: rowHeights.title } : undefined}
+                  >
+                    <h2
+                      className="
+                        text-[48px]
+                        font-bold
+                        leading-[1.08]
+                        tracking-[-0.035em]
+                        text-white
+                      "
+                    >
+                      {offering?.title || "What We Deliver"}
+                    </h2>
+                  </div>
+                ))}
               </div>
             </div>
 
-            {/* Description */}
-            <div className="left-description overflow-hidden">
-              <div className="transform-gpu">
-                <p
-                  className="
-                    max-w-[480px]
-                    text-[20px]
-                    font-normal
-                    leading-[1.45]
-                    tracking-[-0.015em]
-                    text-white
-                  "
-                >
-                  {offering?.description ||
-                    service?.offeringsDescription ||
-                    "Comprehensive solutions tailored to your needs"}
-                </p>
+            {/* Description reel */}
+            <div
+              className="overflow-hidden xl:max-w-[506px] 2xl:max-w-[540px]"
+              style={
+                rowHeights.description ? { height: rowHeights.description } : undefined
+              }
+            >
+              <div ref={descriptionStackRef}>
+                {offerings.map((offering, index) => (
+                  <div
+                    key={index}
+                    ref={(element) => {
+                      descriptionItemRefs.current[index] = element;
+                    }}
+                    className="flex items-center"
+                    style={
+                      rowHeights.description
+                        ? { height: rowHeights.description }
+                        : undefined
+                    }
+                  >
+                    <p
+                      className="
+                        text-[20px]
+                        font-normal
+                        leading-[1.45]
+                        tracking-[-0.015em]
+                        text-white
+                      "
+                    >
+                      {offering?.description ||
+                        service?.offeringsDescription ||
+                        "Comprehensive solutions tailored to your needs"}
+                    </p>
+                  </div>
+                ))}
               </div>
             </div>
           </div>
-        ))}
+        </div>
+
+        {/* RIGHT IMAGE STACK */}
+        <div
+          className="
+            absolute
+            right-8
+            top-[0.01%]
+            xl:h-[913px]
+            2xl:h-[910px]
+            xl:w-[635px]
+            2xl:w-[800px]
+            overflow-hidden
+            rounded-[15px]
+            bg-[#d9d9d9]
+            md:right-10
+            lg:right-12
+            xl:right-20
+          "
+        >
+          {offerings.map((offering, index) => (
+            <div
+              key={index}
+              ref={(element) => {
+                imageRefs.current[index] = element;
+              }}
+              className="absolute inset-0 overflow-hidden"
+              style={{
+                zIndex: offerings.length - index,
+              }}
+            >
+              {offering?.image ? (
+                <Image
+                  src={offering.image}
+                  alt={offering.title || "Service offering"}
+                  fill
+                  className="object-cover"
+                  priority={index === 0}
+                  sizes="42.5vw"
+                />
+              ) : (
+                <div className="absolute inset-0 bg-[#d9d9d9]" />
+              )}
+            </div>
+          ))}
+        </div>
       </div>
 
       {/* ==========================================
-          RIGHT IMAGE STACK
+          MOBILE/TABLET VERSION (<= 1024px) - Static, no animations
+          Each service: Content on top, Image below it
+          Core Offerings label stays at very top
       =========================================== */}
-      <div
-        className="
-          absolute
-          right-8
-          top-[0.01%]
-          h-[913px]
-          w-[635px]
-          overflow-hidden
-          rounded-[15px]
-          bg-[#d9d9d9]
-          md:right-10
-          lg:right-12
-          xl:right-20
-        "
-      >
-        {offerings.map((offering, index) => (
-          <div
-            key={index}
-            ref={(element) => {
-              imageRefs.current[index] = element;
-            }}
-            className="absolute inset-0 overflow-hidden"
-            style={{
-              zIndex: offerings.length - index,
-            }}
-          >
-            {offering?.image ? (
-              <Image
-                src={offering.image}
-                alt={offering.title || "Service offering"}
-                fill
-                className="object-cover"
-                priority={index === 0}
-                sizes="(max-width: 768px) 100vw, 42.5vw"
-              />
-            ) : (
-              <div className="absolute inset-0 bg-[#d9d9d9]" />
-            )}
-          </div>
-        ))}
+      <div className="xl:hidden">
+        <div className="flex flex-col pt-16 px-6 pb-[8%] md:px-10 md:pt-24 lg:px-12">
+          {offerings.map((offering, index) => (
+            <div key={index} className="mb-16 last:mb-0">
+              {/* Content */}
+              <div className="mb-6">
+                <div className="mb-[20px] md:mb-[22px]">
+                  <span className="text-[28px] md:text-[30px] font-bold leading-none tracking-[-0.04em] text-white">
+                    {String(index + 1).padStart(2, "0")}
+                  </span>
+                </div>
+                <div className="mb-[16px] md:mb-[18px]">
+                  <h2 className="text-[24px] font-bold leading-[1.08] tracking-[-0.035em] text-white md:text-[40px]">
+                    {offering?.title || "What We Deliver"}
+                  </h2>
+                </div>
+                <div>
+                  <p className="text-[14px] font-normal leading-[1.45] tracking-[-0.015em] text-white md:text-[20px]">
+                    {offering?.description ||
+                      service?.offeringsDescription ||
+                      "Comprehensive solutions tailored to your needs"}
+                  </p>
+                </div>
+              </div>
+
+              {/* Image - directly below its content */}
+              <div className="relative w-full h-[469px] rounded-[15px] overflow-hidden bg-[#d9d9d9]">
+                {offering?.image ? (
+                  <Image
+                    src={offering.image}
+                    alt={offering.title || "Service offering"}
+                    fill
+                    className="object-cover"
+                    sizes="90vw"
+                  />
+                ) : (
+                  <div className="absolute inset-0 bg-[#d9d9d9]" />
+                )}
+              </div>
+            </div>
+          ))}
+        </div>
       </div>
     </section>
   );

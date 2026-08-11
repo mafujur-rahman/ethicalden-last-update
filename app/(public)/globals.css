@@ -121,3 +121,33 @@ input:-webkit-autofill {
   will-change: clip-path;
 }
 
+
+
+
+.text-container {
+          /* This creates the hanging indent effect */
+          padding-left: 0;
+          text-indent: -125px;
+          padding-left: 125px;
+          display: block;
+        }
+        
+        .text-container p {
+          display: inline;
+          padding-left: 0;
+          text-indent: 0;
+        }
+        
+        /* For xl screens */
+        @media (min-width: 1280px) {
+          .text-container {
+            text-indent: 1px;
+            padding-left: 211px;
+          }
+        }
+        
+        /* This ensures the first line has the indent, subsequent lines don't */
+        .text-container p::first-line {
+          padding-left: 0;
+          text-indent: 0;
+        }

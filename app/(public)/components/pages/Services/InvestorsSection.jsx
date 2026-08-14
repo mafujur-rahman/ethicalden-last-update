@@ -66,7 +66,7 @@ export default function InvestorsSection() {
                                     <div className="vflex-center padding-32 z-index-1 fullsize">
                                         <div className="investors_logo">
                                             <img 
-                                                src="images/68a4746dd7b6e5e682dfe95b_74eb63032adb65f2ee864cd7b56e8854_Placeholder%20Logo.png" 
+                                                src="/images/moonfire.png" 
                                                 loading="lazy" 
                                                 width="84" 
                                                 alt="Moonfire Ventures logo" 
@@ -109,7 +109,7 @@ export default function InvestorsSection() {
                                     <div className="vflex-center padding-32 z-index-1 fullsize">
                                         <div className="investors_logo">
                                             <img 
-                                                src="images/68cd54b08e7061269087ebc1_e583667ce8cc1a88334081460828146d_ovni.png" 
+                                                src="/images/ovni.png" 
                                                 loading="lazy" 
                                                 width="126" 
                                                 alt="OVNI logo" 
@@ -152,7 +152,7 @@ export default function InvestorsSection() {
                                     <div className="vflex-center padding-32 z-index-1 fullsize">
                                         <div className="investors_logo">
                                             <img 
-                                                src="images/68a478de27776b7d5ca5f7a4_007c1c5f38dd5c81bb4b0184889a7b73_Placeholder%20Logo.png" 
+                                                src="/images/kima.png" 
                                                 loading="lazy" 
                                                 width="84" 
                                                 alt="Kima Ventures logo" 

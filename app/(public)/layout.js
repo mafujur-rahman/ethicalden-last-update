@@ -82,7 +82,6 @@ export default function RootLayout({ children }) {
       >
         <CustomCursor />
         <SmoothScroll />
-        <ScrollToTop />
         <PageTransitionLayout >
 
             {children}

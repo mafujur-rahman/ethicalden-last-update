@@ -126,9 +126,9 @@ export default function RootLayout({ children }) {
       <body suppressHydrationWarning>
         <div data-w-id="3f1e8c66-dc14-e31c-04fc-9dd7679fff78" className="page-wrapper">
           <main className="main-wrapper">
-            <PageTransitionLayout>
+
               {children}
-            </PageTransitionLayout>
+
 
           </main>
           <Footer />

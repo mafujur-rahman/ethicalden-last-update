@@ -6,6 +6,7 @@ import "./globals.css";
 import SmoothScroll from "./components/hooks/smooth-scroll";
 import CustomCursor from "./components/CustomCursor/CustomCursor";
 import PageTransitionLayout from "./components/PageTransition/PageTransitionLayout";
+import ScrollToTop from "./components/PageTransition/ScrollToTop";
 
 
 // Define the Geist and Geist_Mono fonts
@@ -81,6 +82,7 @@ export default function RootLayout({ children }) {
       >
         <CustomCursor />
         <SmoothScroll />
+        <ScrollToTop />
         <PageTransitionLayout >
 
             {children}

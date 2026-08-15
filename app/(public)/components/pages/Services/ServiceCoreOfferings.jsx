@@ -308,7 +308,7 @@ export default function ServiceCoreOfferings({ service }) {
 
             {/* Title reel */}
             <div
-              className="mb-[26px] overflow-hidden xl:max-w-[517px] 2xl:max-w-[550px]"
+              className="mb-[26px] overflow-hidden max-w-full"
               style={{ 
                 height: rowHeights.title || 'auto',
                 willChange: 'transform'

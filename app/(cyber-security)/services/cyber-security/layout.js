@@ -1,6 +1,7 @@
-import Navigation from '@/app/(public)/components/pages/Services/Navigation'
 import './CyberSeccurity.css'
 import Footer from '@/app/(public)/components/pages/Services/Footer'
+import PageTransitionLayout from '@/app/(public)/components/PageTransition/PageTransitionLayout'
+import Navbar from '@/app/(public)/components/Shared/Navbar/Navbar'
 
 
 export const metadata = {
@@ -15,11 +16,11 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html 
-      lang="en" 
-      data-wf-domain="www.mokn.io" 
-      data-wf-page="68946a7f9dd4e558382abd0a" 
-      data-wf-site="68946a7f9dd4e558382abd0f" 
+    <html
+      lang="en"
+      data-wf-domain="www.mokn.io"
+      data-wf-page="68946a7f9dd4e558382abd0a"
+      data-wf-site="68946a7f9dd4e558382abd0f"
       suppressHydrationWarning
     >
       <head>
@@ -30,7 +31,7 @@ export default function RootLayout({ children }) {
         <link href="https://fonts.gstatic.com" rel="preconnect" crossOrigin="anonymous" />
         <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon" />
         <link rel="apple-touch-icon" href="/images/favicon.ico" />
-        
+
         {/* All scripts loaded directly without Next.js optimization */}
         <script dangerouslySetInnerHTML={{
           __html: `
@@ -124,9 +125,11 @@ export default function RootLayout({ children }) {
       </head>
       <body suppressHydrationWarning>
         <div data-w-id="3f1e8c66-dc14-e31c-04fc-9dd7679fff78" className="page-wrapper">
-          <Navigation />
           <main className="main-wrapper">
-            {children}
+            <PageTransitionLayout>
+              {children}
+            </PageTransitionLayout>
+
           </main>
           <Footer />
         </div>

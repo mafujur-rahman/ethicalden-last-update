@@ -15,6 +15,8 @@ import CTASection from '../../../(public)/components/pages/Services/CTASection';
 import EventsSection from '../../../(public)/components/pages/Services/EventsSection';
 import LanternSection from '../../../(public)/components/pages/Services/LanternSection';
 import FAQSection from '../../../(public)/components/pages/Services/FAQSection';
+import Navbar from '@/app/(public)/components/Shared/Navbar/Navbar';
+import CyberSecurityNavbar from '@/app/(public)/components/pages/Services/CyberSecurityNavbar';
 
 
 export default function Home() {
@@ -31,8 +33,9 @@ export default function Home() {
 
   return (
     <>
-      <LoadScreen />
-      <Navigation />
+    <div className='min-w-full'>
+      <CyberSecurityNavbar  />
+    </div>
       <HeroSection />
       <FeaturesSection />
       <SliderSection />

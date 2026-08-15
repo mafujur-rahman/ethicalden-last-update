@@ -82,7 +82,7 @@ export default function ServiceFooter({ service, nextService, link }) {
 
   /*
    * ---------------------------------------------------------
-   * Navigate to next service (Click Only)
+   * Navigate to next service with slower page transition
    * ---------------------------------------------------------
    */
   const navigateToNextService = () => {
@@ -99,43 +99,49 @@ export default function ServiceFooter({ service, nextService, link }) {
     isNavigating.current = true;
 
     /*
-     * Animate content out
+     * Slower, more elegant exit animation
+     * to match your page transition timing
      */
-    gsap.to(contentRef.current, {
-      opacity: 0,
-      y: 30,
-      duration: 0.3,
-      ease: 'power2.in',
+    const tl = gsap.timeline({
       onComplete: () => {
-        gsap.to(sectionRef.current, {
-          opacity: 0,
-          duration: 0.2,
-          ease: 'power2.in',
-          onComplete: () => {
-            /*
-             * Reset BEFORE navigation.
-             */
-            resetScroll();
+        /*
+         * Reset BEFORE navigation.
+         */
+        resetScroll();
 
-            /*
-             * Navigate to the new page.
-             *
-             * scroll: true tells Next.js that this is a
-             * normal navigation and the new page should
-             * start at the top.
-             */
-            router.push(targetLink, {
-              scroll: true,
-            });
-
-            // Reset navigation lock after navigation
-            setTimeout(() => {
-              isNavigating.current = false;
-            }, 500);
-          },
+        /*
+         * Navigate to the new page.
+         */
+        router.push(targetLink, {
+          scroll: true,
         });
-      },
+
+        // Reset navigation lock after navigation
+        setTimeout(() => {
+          isNavigating.current = false;
+        }, 800);
+      }
     });
+
+    // Content fades out and moves up
+    tl.to(contentRef.current, {
+      opacity: 0,
+      y: -50,
+      duration: 0.6,
+      ease: 'power2.inOut',
+    })
+    // Section fades out with a slight delay
+    .to(sectionRef.current, {
+      opacity: 0,
+      duration: 0.5,
+      ease: 'power2.inOut',
+    }, '-=0.2') // Overlap slightly for smooth transition
+    // Scale effect on the section for more dramatic exit
+    .to(sectionRef.current, {
+      scale: 0.98,
+      duration: 0.6,
+      ease: 'power2.inOut',
+    }, 0);
   };
 
   /*

@@ -355,7 +355,7 @@ export default function ServiceCoreOfferings({ service }) {
 
             {/* Description reel */}
             <div
-              className="overflow-hidden xl:max-w-[506px] 2xl:max-w-[540px]"
+              className="overflow-hidden max-w-full"
               style={{ 
                 height: rowHeights.description || 'auto',
                 willChange: 'transform'

@@ -109,7 +109,7 @@ export default function ServiceFooter({ service, nextService, link }) {
   return (
     <section 
       ref={sectionRef}
-      className="w-full bg-[#1e1e1e] text-white px-6 md:px-10 lg:px-12 xl:px-20 py-12 md:py-14 lg:py-20 xl:py-28 transition-opacity duration-300"
+      className="w-full bg-[#1e1e1e] lg:min-h-full text-white px-6 md:px-10 lg:px-12 xl:px-20 pt-12 md:pt-14 lg:pt-20 xl:pt-28 transition-opacity duration-300"
     >
       <div
         ref={contentRef}

@@ -11,8 +11,6 @@ export default function ServiceCoreOfferings({ service }) {
   const sectionRef = useRef(null);
   const imageRefs = useRef([]);
 
-  // Reel (filmstrip) refs — one translating stack per column, each stack
-  // holds every offering's number/title/description on top of one another.
   const numberStackRef = useRef(null);
   const titleStackRef = useRef(null);
   const descriptionStackRef = useRef(null);
@@ -20,8 +18,6 @@ export default function ServiceCoreOfferings({ service }) {
   const titleItemRefs = useRef([]);
   const descriptionItemRefs = useRef([]);
 
-  // Measured row heights so every row in a stack is the same height —
-  // that's what makes a simple "index * rowHeight" translate line up.
   const [rowHeights, setRowHeights] = useState({
     number: 0,
     title: 0,
@@ -36,45 +32,79 @@ export default function ServiceCoreOfferings({ service }) {
           description: `Professional ${feature.toLowerCase()} services tailored to your needs.`,
         })) || [];
 
-  // -----------------------------------------
-  // Measure natural row heights (tallest item per column wins, so a
-  // 2-line title doesn't get clipped by a 1-line row).
-  // -----------------------------------------
   useLayoutEffect(() => {
     if (offerings.length < 2) return;
 
     function measure() {
-      const tallest = (refs) =>
+      const getMaxHeight = (refs) =>
         refs.current
           .filter(Boolean)
-          .reduce((max, el) => Math.max(max, el.offsetHeight), 0);
+          .reduce((max, el) => Math.max(max, el.scrollHeight), 0);
+
+      // Add a small buffer (2-3px) to prevent any clipping/overlap
+      const buffer = 3;
+      const maxNumber = getMaxHeight(numberItemRefs) + buffer;
+      const maxTitle = getMaxHeight(titleItemRefs) + buffer;
+      const maxDescription = getMaxHeight(descriptionItemRefs) + buffer;
 
       setRowHeights({
-        number: tallest(numberItemRefs),
-        title: tallest(titleItemRefs),
-        description: tallest(descriptionItemRefs),
+        number: Math.max(maxNumber, 50),
+        title: Math.max(maxTitle, 50),
+        description: Math.max(maxDescription, 50),
       });
     }
 
-    measure();
+    // Use requestAnimationFrame to ensure DOM is fully painted
+    requestAnimationFrame(() => {
+      setTimeout(measure, 100);
+    });
+
     window.addEventListener("resize", measure);
     return () => window.removeEventListener("resize", measure);
   }, [offerings.length]);
+
+  // Apply uniform height to all items
+  useLayoutEffect(() => {
+    if (!rowHeights.number || !rowHeights.title || !rowHeights.description) return;
+
+    numberItemRefs.current.forEach((el) => {
+      if (el) {
+        el.style.height = `${rowHeights.number}px`;
+        el.style.minHeight = `${rowHeights.number}px`;
+        el.style.maxHeight = `${rowHeights.number}px`;
+        el.style.overflow = "hidden";
+      }
+    });
+
+    titleItemRefs.current.forEach((el) => {
+      if (el) {
+        el.style.height = `${rowHeights.title}px`;
+        el.style.minHeight = `${rowHeights.title}px`;
+        el.style.maxHeight = `${rowHeights.title}px`;
+        el.style.overflow = "hidden";
+      }
+    });
+
+    descriptionItemRefs.current.forEach((el) => {
+      if (el) {
+        el.style.height = `${rowHeights.description}px`;
+        el.style.minHeight = `${rowHeights.description}px`;
+        el.style.maxHeight = `${rowHeights.description}px`;
+        el.style.overflow = "hidden";
+      }
+    });
+  }, [rowHeights]);
 
   useEffect(() => {
     if (!sectionRef.current || offerings.length < 2) return;
     if (!rowHeights.number || !rowHeights.title || !rowHeights.description) return;
 
-    // Skip animations for devices <= 1024px
     if (window.innerWidth <= 1024) return;
 
     const ctx = gsap.context(() => {
       const images = imageRefs.current.filter(Boolean);
       if (images.length < 2) return;
 
-      // -----------------------------------------
-      // Initial image state
-      // -----------------------------------------
       images.forEach((image, index) => {
         gsap.set(image, {
           clipPath: "inset(0% 0% 0% 0%)",
@@ -82,16 +112,10 @@ export default function ServiceCoreOfferings({ service }) {
         });
       });
 
-      // -----------------------------------------
-      // Initial reel position
-      // -----------------------------------------
       gsap.set([numberStackRef.current, titleStackRef.current, descriptionStackRef.current], {
         y: 0,
       });
 
-      // -----------------------------------------
-      // Main Timeline
-      // -----------------------------------------
       const timeline = gsap.timeline({
         scrollTrigger: {
           trigger: sectionRef.current,
@@ -110,7 +134,6 @@ export default function ServiceCoreOfferings({ service }) {
 
         const currentImage = images[index];
 
-        // Image goes from 100% -> 0% (unchanged)
         timeline.to(
           currentImage,
           {
@@ -121,12 +144,6 @@ export default function ServiceCoreOfferings({ service }) {
           index
         );
 
-        // -----------------------------------------
-        // Text reel — one hard, masked translateY step per column,
-        // all three columns moving together mid-scroll (matches the
-        // reference: text holds, then snaps to the next row, clipped
-        // by the overflow-hidden window rather than fading).
-        // -----------------------------------------
         const nextIndex = index + 1;
 
         timeline.to(
@@ -168,9 +185,6 @@ export default function ServiceCoreOfferings({ service }) {
     };
   }, [offerings.length, rowHeights]);
 
-  // ==========================================
-  // FALLBACK
-  // ==========================================
   if (offerings.length === 0) {
     return (
       <section className="relative min-h-screen w-full overflow-hidden bg-black">
@@ -203,22 +217,14 @@ export default function ServiceCoreOfferings({ service }) {
       ref={sectionRef}
       className="relative min-h-screen w-full overflow-hidden bg-[#1e1e1e] text-[#ffffff]"
     >
-      {/* ==========================================
-          SECTION LABEL - Stays at top of section for all devices
-      =========================================== */}
       <div className="absolute left-6 top-0 z-[100] md:left-10 md:top-10 lg:left-12 xl:left-20 xl:top-[5%]">
         <span className="text-[16px] font-bold uppercase tracking-[-0.01em] text-white">
           Core Offerings
         </span>
       </div>
 
-      {/* ==========================================
-          DESKTOP VERSION (> 1024px) - With animations
-      =========================================== */}
+      {/* DESKTOP VERSION */}
       <div className="hidden xl:block">
-        {/* LEFT CONTENT — masked reel: each column is a fixed-height
-            overflow-hidden window with every offering's text stacked
-            inside it; the stack translates as one block. */}
         <div
           className="
             relative
@@ -256,9 +262,18 @@ export default function ServiceCoreOfferings({ service }) {
             {/* Number reel */}
             <div
               className="mb-[38px] overflow-hidden"
-              style={rowHeights.number ? { height: rowHeights.number } : undefined}
+              style={{ 
+                height: rowHeights.number || 'auto',
+                // Add will-change to hint at optimization
+                willChange: 'transform'
+              }}
             >
-              <div ref={numberStackRef}>
+              <div 
+                ref={numberStackRef}
+                style={{
+                  willChange: 'transform'
+                }}
+              >
                 {offerings.map((offering, index) => (
                   <div
                     key={index}
@@ -266,9 +281,12 @@ export default function ServiceCoreOfferings({ service }) {
                       numberItemRefs.current[index] = element;
                     }}
                     className="flex items-center"
-                    style={
-                      rowHeights.number ? { height: rowHeights.number } : undefined
-                    }
+                    style={{ 
+                      height: rowHeights.number || 'auto',
+                      minHeight: rowHeights.number || 'auto',
+                      maxHeight: rowHeights.number || 'auto',
+                      overflow: 'hidden'
+                    }}
                   >
                     <span
                       className="
@@ -277,6 +295,8 @@ export default function ServiceCoreOfferings({ service }) {
                         leading-none
                         tracking-[-0.04em]
                         text-white
+                        block
+                        w-full
                       "
                     >
                       {String(index + 1).padStart(2, "0")}
@@ -289,9 +309,17 @@ export default function ServiceCoreOfferings({ service }) {
             {/* Title reel */}
             <div
               className="mb-[26px] overflow-hidden xl:max-w-[517px] 2xl:max-w-[550px]"
-              style={rowHeights.title ? { height: rowHeights.title } : undefined}
+              style={{ 
+                height: rowHeights.title || 'auto',
+                willChange: 'transform'
+              }}
             >
-              <div ref={titleStackRef}>
+              <div 
+                ref={titleStackRef}
+                style={{
+                  willChange: 'transform'
+                }}
+              >
                 {offerings.map((offering, index) => (
                   <div
                     key={index}
@@ -299,7 +327,12 @@ export default function ServiceCoreOfferings({ service }) {
                       titleItemRefs.current[index] = element;
                     }}
                     className="flex items-center"
-                    style={rowHeights.title ? { height: rowHeights.title } : undefined}
+                    style={{ 
+                      height: rowHeights.title || 'auto',
+                      minHeight: rowHeights.title || 'auto',
+                      maxHeight: rowHeights.title || 'auto',
+                      overflow: 'hidden'
+                    }}
                   >
                     <h2
                       className="
@@ -308,6 +341,9 @@ export default function ServiceCoreOfferings({ service }) {
                         leading-[1.08]
                         tracking-[-0.035em]
                         text-white
+                        block
+                        w-full
+                        break-words
                       "
                     >
                       {offering?.title || "What We Deliver"}
@@ -320,11 +356,17 @@ export default function ServiceCoreOfferings({ service }) {
             {/* Description reel */}
             <div
               className="overflow-hidden xl:max-w-[506px] 2xl:max-w-[540px]"
-              style={
-                rowHeights.description ? { height: rowHeights.description } : undefined
-              }
+              style={{ 
+                height: rowHeights.description || 'auto',
+                willChange: 'transform'
+              }}
             >
-              <div ref={descriptionStackRef}>
+              <div 
+                ref={descriptionStackRef}
+                style={{
+                  willChange: 'transform'
+                }}
+              >
                 {offerings.map((offering, index) => (
                   <div
                     key={index}
@@ -332,11 +374,12 @@ export default function ServiceCoreOfferings({ service }) {
                       descriptionItemRefs.current[index] = element;
                     }}
                     className="flex items-center"
-                    style={
-                      rowHeights.description
-                        ? { height: rowHeights.description }
-                        : undefined
-                    }
+                    style={{ 
+                      height: rowHeights.description || 'auto',
+                      minHeight: rowHeights.description || 'auto',
+                      maxHeight: rowHeights.description || 'auto',
+                      overflow: 'hidden'
+                    }}
                   >
                     <p
                       className="
@@ -345,6 +388,9 @@ export default function ServiceCoreOfferings({ service }) {
                         leading-[1.45]
                         tracking-[-0.015em]
                         text-white
+                        block
+                        w-full
+                        break-words
                       "
                     >
                       {offering?.description ||
@@ -358,7 +404,7 @@ export default function ServiceCoreOfferings({ service }) {
           </div>
         </div>
 
-        {/* RIGHT IMAGE STACK */}
+        {/* IMAGES */}
         <div
           className="
             absolute
@@ -385,6 +431,7 @@ export default function ServiceCoreOfferings({ service }) {
               className="absolute inset-0 overflow-hidden"
               style={{
                 zIndex: offerings.length - index,
+                willChange: 'clip-path'
               }}
             >
               {offering?.image ? (
@@ -404,16 +451,11 @@ export default function ServiceCoreOfferings({ service }) {
         </div>
       </div>
 
-      {/* ==========================================
-          MOBILE/TABLET VERSION (<= 1024px) - Static, no animations
-          Each service: Content on top, Image below it
-          Core Offerings label stays at very top
-      =========================================== */}
+      {/* MOBILE/TABLET */}
       <div className="xl:hidden">
         <div className="flex flex-col pt-16 px-6 pb-[8%] md:px-10 md:pt-24 lg:px-12">
           {offerings.map((offering, index) => (
             <div key={index} className="mb-16 last:mb-0">
-              {/* Content */}
               <div className="mb-6">
                 <div className="mb-[20px] md:mb-[22px]">
                   <span className="text-[28px] md:text-[30px] font-bold leading-none tracking-[-0.04em] text-white">
@@ -434,7 +476,6 @@ export default function ServiceCoreOfferings({ service }) {
                 </div>
               </div>
 
-              {/* Image - directly below its content */}
               <div className="relative w-full h-[469px] rounded-[15px] overflow-hidden bg-[#d9d9d9]">
                 {offering?.image ? (
                   <Image

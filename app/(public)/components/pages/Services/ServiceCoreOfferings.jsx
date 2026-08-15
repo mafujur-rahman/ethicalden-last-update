@@ -49,7 +49,7 @@ export default function ServiceCoreOfferings({ service }) {
 
       setRowHeights({
         number: Math.max(maxNumber, 50),
-        title: Math.max(maxTitle, 50),
+        title: Math.max(maxTitle, 80),
         description: Math.max(maxDescription, 50),
       });
     }

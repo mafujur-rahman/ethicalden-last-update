@@ -1,8 +1,8 @@
 // components/service/ServiceFooter.js
 'use client';
 
-import React, { useRef, useEffect, useState } from 'react';
-import { useRouter } from 'next/navigation';
+import React, { useRef, useEffect, useLayoutEffect, useState } from 'react';
+import { usePathname, useRouter } from 'next/navigation';
 import gsap from 'gsap';
 import Image from 'next/image';
 
@@ -13,6 +13,32 @@ export default function ServiceFooter({ service, nextService, link }) {
   const [isExiting, setIsExiting] = useState(false);
   const [hasTriggered, setHasTriggered] = useState(false);
   const router = useRouter();
+  const pathname = usePathname();
+
+  const resetScrollPosition = () => {
+    window.scrollTo(0, 0);
+    document.documentElement.scrollTop = 0;
+    document.body.scrollTop = 0;
+  };
+
+  useLayoutEffect(() => {
+    const previousScrollRestoration = window.history.scrollRestoration;
+    const resetAfterHistoryNavigation = () => {
+      resetScrollPosition();
+      requestAnimationFrame(resetScrollPosition);
+      window.setTimeout(resetScrollPosition, 0);
+    };
+
+    // Service pages always open from the beginning, including browser back/forward.
+    window.history.scrollRestoration = 'manual';
+    resetAfterHistoryNavigation();
+    window.addEventListener('popstate', resetAfterHistoryNavigation);
+
+    return () => {
+      window.removeEventListener('popstate', resetAfterHistoryNavigation);
+      window.history.scrollRestoration = previousScrollRestoration;
+    };
+  }, [pathname]);
 
   const navigateToNextService = () => {
     if (isNavigating.current || isExiting) return;
@@ -33,25 +59,13 @@ export default function ServiceFooter({ service, nextService, link }) {
           ease: 'power2.in',
           onComplete: () => {
             const targetLink = link || service?.link || '/services';
-            
-            // Navigate with scroll disabled
-            router.push(targetLink, { scroll: false });
-            
-            // Handle scroll after navigation complete
-            const scrollToTop = () => {
-              window.scrollTo(0, 0);
-              document.documentElement.scrollTop = 0;
-              document.documentElement.scrollLeft = 0;
-              document.body.scrollTop = 0;
-              document.body.scrollLeft = 0;
-            };
-            
-            // Multiple scroll attempts at different timings
-            scrollToTop();
-            setTimeout(scrollToTop, 10);
-            setTimeout(scrollToTop, 50);
-            setTimeout(scrollToTop, 100);
-            setTimeout(scrollToTop, 200);
+
+            // Reset before navigating. This prevents the destination service from
+            // inheriting the deep scroll offset that triggered this footer.
+            resetScrollPosition();
+            requestAnimationFrame(() => {
+              router.push(targetLink, { scroll: false });
+            });
             
             // Reset states
             setTimeout(() => {

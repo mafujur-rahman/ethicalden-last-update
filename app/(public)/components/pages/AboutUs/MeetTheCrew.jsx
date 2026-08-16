@@ -43,7 +43,7 @@ const MeetTheCrew = () => {
         // { id: 12, name: 'Alvira', profession: 'HR officer India', imageUrl: 'https://pub-d88e94f6ca8d4f2d9dcb7f5ba3ccfcf0.r2.dev/aboutPage/crew-members/Alvira.webp' },
         { id: 13, name: 'Nawaz Aqiv Ahmed', profession: 'Senior Business Developer', imageUrl: '/images/team/nawaz.jpeg' },
         // { id: 14, name: 'Sagnik', profession: 'Business Development Expert', imageUrl: 'https://pub-d88e94f6ca8d4f2d9dcb7f5ba3ccfcf0.r2.dev/aboutPage/crew-members/Shagnik.webp' },
-        { id: 15, name: 'Adity Adhikary', profession: 'Human Resource Executive', imageUrl: '/images/team/adity.jpeg' },
+        // { id: 15, name: 'Adity Adhikary', profession: 'Human Resource Executive', imageUrl: '/images/team/adity.jpeg' },
         // { id: 16, name: 'Sumaiya', profession: 'App Developer', imageUrl: 'https://pub-d88e94f6ca8d4f2d9dcb7f5ba3ccfcf0.r2.dev/aboutPage/crew-members/sumaiya.png' },
         // { id: 17, name: 'Fatema', profession: 'Mobile App Developer', imageUrl: 'https://pub-d88e94f6ca8d4f2d9dcb7f5ba3ccfcf0.r2.dev/aboutPage/crew-members/Fatema.webp' },
         // { id: 17, name: 'Hridoy', profession: 'Mobile App Developer', imageUrl: '/images/team/hridoy.jpeg' },
